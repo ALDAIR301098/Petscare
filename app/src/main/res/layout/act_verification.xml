@@ -83,10 +83,10 @@
         android:text="Revisa tu app de mensajería copia el código e ingresalo en el siguiente campo de texto."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_numero" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txt_numero"
         style="@style/STYLE_TEXT_TITULOS"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

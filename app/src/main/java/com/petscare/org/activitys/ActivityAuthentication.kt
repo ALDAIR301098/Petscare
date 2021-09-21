@@ -25,10 +25,10 @@ class ActivityAuthentication : AppCompatActivity() {
 
     private fun verificarNumero() {
         binding.ctxTelefono.error = null
-        val numero_tel = binding.ctxTelefono.editText?.text
-        if (numero_tel?.isNotEmpty() == true){
+        val numero_tel = binding.ctxTelefono.editText?.text.toString()
+        if (numero_tel.isNotEmpty()){
             if (numero_tel.length==10){
-                mostrarActivity(Intent(this, ActivityVerification::class.java))
+                mostrarActivity(numero_tel)
             } else{
                 mostrarError("Número de teléfono no válido")
             }
@@ -41,7 +41,9 @@ class ActivityAuthentication : AppCompatActivity() {
         binding.ctxTelefono.error = text
     }
 
-    private fun mostrarActivity(intent : Intent) {
+    private fun mostrarActivity(data : String) {
+        val intent = Intent(this, ActivityVerification::class.java)
+        intent.putExtra("telefono",data)
         startActivity(intent)
         finish()
     }

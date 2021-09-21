@@ -10,6 +10,7 @@ public class ActivityInicio extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.THEME_GLOBAL_APP);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_inicio);
     }
