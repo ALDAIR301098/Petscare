@@ -37,7 +37,7 @@ class ActivityWelcome : AppCompatActivity(){
     }
 
     private fun eventosUI(){
-        binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuthentication::class.java))}
+        binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuth::class.java))}
     }
 
     private fun mostrarActivity(intent: Intent){

@@ -22,12 +22,12 @@ class ActivityAuthentication : AppCompatActivity() {
 
     private fun eventos() {
         binding.topAppBar.setNavigationOnClickListener({cerrarActivity()})
-        binding.btnGenerar.setOnClickListener({verificarNumero()})
+        //binding.btnGenerar.setOnClickListener({verificarNumero()})
     }
 
     private fun verificarNumero() {
-        binding.ctxTelefono.error = null
-        val numero_tel = binding.ctxTelefono.editText?.text.toString()
+        binding.ctxTelefono2.error = null
+        val numero_tel = binding.ctxTelefono2.editText?.text.toString()
         if (numero_tel.isNotEmpty()){
             if (numero_tel.length==10){
                 mostrarActivity(numero_tel)
@@ -40,7 +40,7 @@ class ActivityAuthentication : AppCompatActivity() {
     }
 
     private fun mostrarError(text : String) {
-        binding.ctxTelefono.error = text
+        binding.ctxTelefono2.error = text
     }
 
     private fun mostrarActivity(data : String) {
