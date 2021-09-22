@@ -9,8 +9,10 @@
         <item name="textInputStyle">@style/STYLE_MATERIAL_TEXT_INPUT_lAYOUT</item>
     </style>
 
-    <style name="THEME_SPLASH_SCREEN" parent="THEME_GLOBAL_APP">
-        <item name="android:windowBackground">@drawable/drawable_splash_screen</item>
+    <style name="THEME_SPLASH_SCREEN" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#121212</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/THEME_GLOBAL_APP</item>
     </style>
 
     <style name="THEME_TOOLBAR_ACTIVITY" parent="THEME_GLOBAL_APP">
