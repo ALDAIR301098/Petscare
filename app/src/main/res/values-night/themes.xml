@@ -25,7 +25,7 @@
 
     <style name="STYLE_TEXT_TITULOS" parent="android:Widget.TextView">
         <item name="android:textColor">@color/titulos</item>
-        <item name="fontFamily">@font/fredoka_one_regular</item>
+        <item name="fontFamily">@font/google_sans_bold</item>
         <item name="android:textSize">24sp</item>
     </style>
 
@@ -38,7 +38,7 @@
     <style name="STYLE_MATERIAL_BUTTON" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">15dp</item>
         <item name="android:minHeight">65dp</item>
-        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:fontFamily">@font/google_sans_regular</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/blanco</item>
         <item name="textAllCaps">false</item>
@@ -47,7 +47,7 @@
     <style name="STYLE_MATERIAL_BUTTON_OUTLINED" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="cornerRadius">15dp</item>
         <item name="android:minHeight">65dp</item>
-        <item name="android:fontFamily">@font/fredoka_one_regular</item>
+        <item name="android:fontFamily">@font/google_sans_regular</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/text_buttoon_outlined</item>
         <item name="textAllCaps">false</item>

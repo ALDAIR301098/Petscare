@@ -8,32 +8,41 @@ import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.petscare.org.databinding.ActWelcomeBinding
 
-class ActivityWelcome : AppCompatActivity() {
+class ActivityWelcome : AppCompatActivity(){
 
     private lateinit var binding : ActWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+
         binding = ActWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         retardarSplashScreen()
-        EventosUI()
+        eventosUI()
     }
 
     private fun retardarSplashScreen() {
         val content: View = findViewById(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener {
-            Thread.sleep(1500)
-            true
-        }
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    Thread.sleep(1500)
+                    content.viewTreeObserver.removeOnPreDrawListener(this)
+                    return true
+                }
+            }
+        )
     }
 
-    private fun EventosUI(){
+    private fun eventosUI(){
         binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuthentication::class.java))}
     }
 
     private fun mostrarActivity(intent: Intent){
         startActivity(intent)
     }
+
+
 }

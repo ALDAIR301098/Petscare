@@ -13,8 +13,10 @@ class ActivityAuthentication : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.THEME_TOOLBAR_ACTIVITY)
         super.onCreate(savedInstanceState)
+
         binding = ActAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         eventos()
     }
 
