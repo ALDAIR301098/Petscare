@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import com.petscare.org.R;
 
-public class ActivityInicio extends AppCompatActivity {
+public class ActivityMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.THEME_GLOBAL_APP);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_inicio);
+        setContentView(R.layout.act_menu);
     }
 }

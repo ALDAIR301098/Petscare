@@ -8,12 +8,15 @@
     <color name="cafe">#FF61493F</color>
     <color name="indigo">#8C73FF</color>
     <color name="amarillo">#FFD862</color>
+    <color name="verde">#00796b</color>
+    <color name="morado">#673ab7</color>
 
     <!-- Colores de componentes normales -->
     <color name="text_buttoon_outlined">@color/gris</color>
     <color name="contorno">@color/gris</color>
-    <color name="color_fondo_ventana">#121212</color>
+    <color name="fondo_ventana">#121212</color>
     <color name="fondo_toolbar">#242424</color>
+    <color name="boton_corregir">@color/morado</color>
 
     <!-- Boton Google y Boton Facebook -->
     <color name="text_btn_google_fb">@color/blanco</color>
