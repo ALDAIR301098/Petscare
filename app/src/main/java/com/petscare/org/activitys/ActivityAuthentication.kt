@@ -2,18 +2,16 @@ package com.petscare.org.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.petscare.org.Interfaces.onNextFragmentListener
 import com.petscare.org.R
-import com.petscare.org.databinding.ActAuthBinding
+import com.petscare.org.databinding.ActAuthenticationBinding
 import com.petscare.org.fragments.authentication.FragmentAuthentication
 import com.petscare.org.fragments.authentication.FragmentVerification
 
-class ActivityAuth : AppCompatActivity(), onNextFragmentListener{
+class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
 
-    private lateinit var binding : ActAuthBinding
+    private lateinit var binding : ActAuthenticationBinding
     private lateinit var frag_authentication : Fragment
     private lateinit var frag_verification : Fragment
     private var frag_index = 0
@@ -22,11 +20,11 @@ class ActivityAuth : AppCompatActivity(), onNextFragmentListener{
         setTheme(R.style.THEME_TOOLBAR_ACTIVITY)
         super.onCreate(savedInstanceState)
 
-        binding = ActAuthBinding.inflate(layoutInflater)
+        binding = ActAuthenticationBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         crearFragments()
-        mostrarFragments()
+        mostrarFragment()
         eventosUI()
     }
 
@@ -35,7 +33,7 @@ class ActivityAuth : AppCompatActivity(), onNextFragmentListener{
         frag_verification = FragmentVerification()
     }
 
-    private fun mostrarFragments() {
+    private fun mostrarFragment() {
         supportFragmentManager.beginTransaction().add(R.id.contenedor_frags_auth,frag_authentication).commit()
     }
 

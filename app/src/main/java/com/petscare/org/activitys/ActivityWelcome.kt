@@ -37,7 +37,11 @@ class ActivityWelcome : AppCompatActivity(){
     }
 
     private fun eventosUI(){
-        binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuth::class.java))}
+        binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuthentication::class.java))}
+        binding.imgLogo.setOnClickListener {
+            mostrarActivity(Intent(this, ActivityMenu::class.java))
+            finish()
+        }
     }
 
     private fun mostrarActivity(intent: Intent){
