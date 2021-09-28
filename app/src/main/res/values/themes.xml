@@ -9,6 +9,8 @@
         <item name="textInputStyle">@style/STYLE_MATERIAL_TEXT_INPUT_lAYOUT</item>
     </style>
 
+
+
     <style name="THEME_SPLASH_SCREEN" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/blanco</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
