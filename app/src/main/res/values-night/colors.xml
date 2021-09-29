@@ -16,7 +16,7 @@
     <color name="contorno">@color/gris</color>
     <color name="fondo_ventana">#121212</color>
     <color name="fondo_toolbar">#242424</color>
-    <color name="boton_corregir">@color/morado</color>
+    <color name="boton_reenviar_corregir">#242424</color>
 
     <!-- Boton Google y Boton Facebook -->
     <color name="text_btn_google_fb">@color/blanco</color>

@@ -23,12 +23,11 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            style="@style/STYLE_MATERIAL_BUTTON_OUTLINED"
             android:id="@+id/btn_reenviar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
             android:backgroundTint="#808080"
             android:enabled="false"
@@ -131,17 +130,16 @@
 
         <Button
             android:id="@+id/btn_corregir"
-            style="@style/STYLE_MATERIAL_BUTTON_OUTLINED"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/boton_reenviar_corregir"
             android:text="Corregir"
-            android:textColor="@color/blanco"
             app:icon="@drawable/ic_phone"
-            android:backgroundTint="#242424"
             app:iconTint="@color/blanco"
+            android:textColor="@color/blanco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="parent" />

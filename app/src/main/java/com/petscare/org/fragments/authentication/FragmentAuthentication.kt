@@ -32,7 +32,7 @@ class FragmentAuthentication : Fragment() {
     }
 
     private fun verificarNumero() {
-        binding.ctxTelefono.error = null
+    binding.ctxTelefono.error = null
         telefono = binding.ctxTelefono.editText?.text.toString()
         if (telefono.isNotEmpty()){
             if (telefono.length==10){
