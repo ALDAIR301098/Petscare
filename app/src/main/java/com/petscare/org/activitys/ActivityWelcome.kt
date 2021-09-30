@@ -37,16 +37,19 @@ class ActivityWelcome : AppCompatActivity(){
     }
 
     private fun eventosUI(){
-        binding.btnIngresar.setOnClickListener {mostrarActivity(Intent(this, ActivityAuthentication::class.java))}
+        binding.btnIngresar.setOnClickListener {
+            val intent = Intent(this,ActivityAuthentication::class.java)
+            intent.putExtra("auth_mode","login")
+            startActivity(intent)
+        }
+        binding.btnRegistrar.setOnClickListener {
+            val intent = Intent(this,ActivityAuthentication::class.java)
+            intent.putExtra("auth_mode","register")
+            startActivity(intent)
+        }
         binding.imgLogo.setOnClickListener {
-            mostrarActivity(Intent(this, ActivityMenu::class.java))
+            startActivity(Intent(this,ActivityMenu::class.java))
             finish()
         }
     }
-
-    private fun mostrarActivity(intent: Intent){
-        startActivity(intent)
-    }
-
-
 }

@@ -12,11 +12,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.petscare.org.R;
 
 public class ActivityMenu extends AppCompatActivity {
-
+/*
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
-    FourFragment fourFragment = new FourFragment();
+    FourFragment fourFragment = new FourFragment();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,11 @@ public class ActivityMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_menu);
 
-        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+       /* BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener); */
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+   /* private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -59,6 +59,6 @@ public class ActivityMenu extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
         transaction.commit();
-    }
+    } */
 
 }

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/THEME_SPLASH_SCREEN">
         <activity
+            android:name=".activitys.RegisterActivity"
+            android:exported="true" />
+        <activity
             android:name=".activitys.ActivityAuthentication"
             android:exported="true" />
         <activity

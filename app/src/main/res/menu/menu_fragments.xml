@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    //FRAGMENTS DE LA APP
     <item
         android:id="@+id/firstFragment"
         android:icon="@drawable/ic_feed"
         android:title="Feed"/>
-
-
     <item
         android:id="@+id/secondFragment"
         android:icon="@drawable/ic_mascotas"
@@ -22,6 +18,4 @@
         android:id="@+id/fourFragment"
         android:icon="@drawable/ic_perfil"
         android:title="Perfil"/>
-
-
 </menu>

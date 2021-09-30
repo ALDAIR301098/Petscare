@@ -1,5 +1,6 @@
 package com.petscare.org.activitys
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,13 +15,15 @@ class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
     private lateinit var binding : ActAuthenticationBinding
     private lateinit var frag_authentication : Fragment
     private lateinit var frag_verification : Fragment
-    private var frag_index = 0
+    private var frag_index : Int = 0
+    private lateinit var auth_mode : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.THEME_TOOLBAR_ACTIVITY)
         super.onCreate(savedInstanceState)
 
         binding = ActAuthenticationBinding.inflate(layoutInflater)
+        auth_mode = intent.extras?.getString("auth_mode").toString()
 
         setContentView(binding.root)
         crearFragments()
@@ -42,9 +45,23 @@ class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
     }
 
     override fun cambiarFragment(data: Bundle) {
-        frag_verification.arguments = data
-        supportFragmentManager.beginTransaction().replace(R.id.contenedor_frags_auth,frag_verification).commit()
-        frag_index++
+        frag_index = data.getInt("index")
+        if (frag_index == 0){
+            frag_verification.arguments = data
+            supportFragmentManager.beginTransaction().replace(R.id.contenedor_frags_auth,frag_verification).commit()
+            frag_index++
+        } else if (frag_index == 1 && auth_mode == "login"){
+            cambiarActivity(Intent(this,ActivityMenu::class.java))
+        } else if(frag_index == 1 && auth_mode == "register"){
+            cambiarActivity(Intent(this,RegisterActivity::class.java))
+        }
+    }
+
+    private fun cambiarActivity(intent : Intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 
     override fun onBackPressed() {

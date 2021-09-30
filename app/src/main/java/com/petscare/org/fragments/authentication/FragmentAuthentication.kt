@@ -50,7 +50,7 @@ class FragmentAuthentication : Fragment() {
     }
 
     private fun cambiarFragment() {
-        val data = bundleOf("telefono" to telefono)
+        val data = bundleOf("telefono" to telefono, "index" to 0)
         change_frag_listener.cambiarFragment(data)
     }
 
