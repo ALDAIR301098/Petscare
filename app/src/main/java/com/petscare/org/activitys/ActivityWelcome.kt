@@ -51,5 +51,9 @@ class ActivityWelcome : AppCompatActivity(){
             startActivity(Intent(this,ActivityMenu::class.java))
             finish()
         }
+        binding.imgPajaro.setOnClickListener {
+            startActivity(Intent(this,ActivityRegister::class.java))
+            finish()
+        }
     }
 }

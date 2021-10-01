@@ -53,7 +53,7 @@ class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
         } else if (frag_index == 1 && auth_mode == "login"){
             cambiarActivity(Intent(this,ActivityMenu::class.java))
         } else if(frag_index == 1 && auth_mode == "register"){
-            cambiarActivity(Intent(this,RegisterActivity::class.java))
+            cambiarActivity(Intent(this,ActivityRegister::class.java))
         }
     }
 

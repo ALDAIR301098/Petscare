@@ -9,8 +9,6 @@
         <item name="textInputStyle">@style/STYLE_MATERIAL_TEXT_INPUT_lAYOUT</item>
     </style>
 
-
-
     <style name="THEME_SPLASH_SCREEN" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/blanco</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
@@ -60,12 +58,26 @@
 
     <style name="STYLE_CUSTOM_MATERIAL_TEXT_INPUT_lAYOUT" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="colorPrimary">@color/cafe</item>
+        <item name="boxCornerRadiusBottomEnd">15dp</item>
+        <item name="boxCornerRadiusBottomStart">15dp</item>
+        <item name="boxCornerRadiusTopEnd">15dp</item>
+        <item name="boxCornerRadiusTopStart">15dp</item>
     </style>
 
     <style name="APARIENCIA_MATERIAL_TOOLBAR_TITLE_TEXT" parent="@style/TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/google_sans_regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/parrafos</item>
+        <item name="fontFamily">@font/google_sans_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/parrafos</item>
+        <item name="fontFamily">@font/google_sans_regular</item>
     </style>
 
 </resources>
