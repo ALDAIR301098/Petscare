@@ -7,6 +7,7 @@
         <item name="materialButtonStyle">@style/STYLE_MATERIAL_BUTTON</item>
         <item name="android:textViewStyle">@style/STYLE_TEXT_PARRAFOS</item>
         <item name="textInputStyle">@style/STYLE_MATERIAL_TEXT_INPUT_lAYOUT</item>
+        <item name="materialCalendarTheme">@style/STYLE_MATERIAL_CALENDAR_PICKER</item>
     </style>
 
     <style name="THEME_SPLASH_SCREEN" parent="Theme.SplashScreen">
@@ -64,10 +65,47 @@
         <item name="boxCornerRadiusTopStart">15dp</item>
     </style>
 
+    <style name="SPINNER" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/amarillo</item>
+    </style>
+
     <style name="APARIENCIA_MATERIAL_TOOLBAR_TITLE_TEXT" parent="@style/TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/google_sans_regular</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="STYLE_MATERIAL_CALENDAR_PICKER" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="materialCalendarHeaderTitle">@style/STYLE_TITLE_MATERIAL_CALENDAR_PICKER</item>
+        <item name="materialCalendarHeaderSelection">@style/STYLE_DATE_SELECTION_MATERIAL_CALENDAR_PICKER</item>
+        <item name="materialCalendarHeaderToggleButton">@style/STYLE_HIDE_TOGGLE_BUTTON_MATERIAL_CALENDAR_PICKER</item>
+    </style>
+
+    <style name="STYLE_DATE_SELECTION_MATERIAL_CALENDAR_PICKER" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/blanco</item>
+    </style>
+
+    <style name="STYLE_TITLE_MATERIAL_CALENDAR_PICKER" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="STYLE_HIDE_TOGGLE_BUTTON_MATERIAL_CALENDAR_PICKER" parent="Widget.AppCompat.Button">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">

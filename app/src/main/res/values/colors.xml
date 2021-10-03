@@ -15,11 +15,14 @@
     <color name="morado">#673ab7</color>
 
     <!-- Colores de componentes normales -->
+    <color name="secundario">@color/cafe</color>
     <color name="text_buttoon_outlined">@color/gris</color>
     <color name="contorno">@color/gris</color>
     <color name="fondo_ventana">@color/blanco</color>
     <color name="fondo_toolbar">@null</color>
     <color name="boton_reenviar_corregir">@color/amarillo_fuerte</color>
+    <color name="app_bar">@color/blanco</color>
+
 
     <!-- Boton Google y Boton Facebook -->
     <color name="text_btn_google_fb">@color/gris</color>

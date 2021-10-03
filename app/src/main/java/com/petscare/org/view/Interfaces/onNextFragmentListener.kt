@@ -1,4 +1,4 @@
-package com.petscare.org.Interfaces
+package com.petscare.org.view.Interfaces
 
 import android.os.Bundle
 

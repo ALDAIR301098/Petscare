@@ -1,4 +1,4 @@
-package com.petscare.org.fragments.authentication
+package com.petscare.org.view.fragments.authentication
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.petscare.org.databinding.FragAuthenticationBinding
-import com.petscare.org.Interfaces.onNextFragmentListener
+import com.petscare.org.view.Interfaces.onNextFragmentListener
 
 class FragmentAuthentication : Fragment() {
 

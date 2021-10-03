@@ -1,4 +1,4 @@
-package com.petscare.org.fragments.register
+package com.petscare.org.view.fragments.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.petscare.org.R
 
-class FragmentContrasena : Fragment() {
+class FragmentTerminar : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_contrasena, container, false)
+        return inflater.inflate(R.layout.fragment_terminar, container, false)
     }
 }

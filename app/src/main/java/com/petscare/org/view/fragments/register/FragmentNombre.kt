@@ -1,4 +1,4 @@
-package com.petscare.org.fragments.register
+package com.petscare.org.view.fragments.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

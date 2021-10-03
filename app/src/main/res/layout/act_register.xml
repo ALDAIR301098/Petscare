@@ -10,7 +10,7 @@
         style="@style/Widget.MaterialComponents.Toolbar.Surface"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:backgroundTint="@color/blanco"
+        android:backgroundTint="@color/app_bar"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout

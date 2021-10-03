@@ -1,4 +1,4 @@
-package com.petscare.org.activitys
+package com.petscare.org.view.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

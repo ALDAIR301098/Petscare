@@ -1,14 +1,14 @@
-package com.petscare.org.activitys
+package com.petscare.org.view.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.petscare.org.Interfaces.onNextFragmentListener
+import com.petscare.org.view.Interfaces.onNextFragmentListener
 import com.petscare.org.R
 import com.petscare.org.databinding.ActAuthenticationBinding
-import com.petscare.org.fragments.authentication.FragmentAuthentication
-import com.petscare.org.fragments.authentication.FragmentVerification
+import com.petscare.org.view.fragments.authentication.FragmentAuthentication
+import com.petscare.org.view.fragments.authentication.FragmentVerification
 
 class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
 

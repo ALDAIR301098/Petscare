@@ -1,7 +1,6 @@
-package com.petscare.org.fragments.authentication
+package com.petscare.org.view.fragments.authentication
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList.*
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,9 +14,8 @@ import androidx.core.os.bundleOf
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
-import com.petscare.org.Interfaces.onNextFragmentListener
+import com.petscare.org.view.Interfaces.onNextFragmentListener
 import com.petscare.org.R
-import com.petscare.org.activitys.ActivityMenu
 import com.petscare.org.databinding.FragVerificationBinding
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
