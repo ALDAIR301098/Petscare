@@ -80,9 +80,15 @@ class FragmentContrasena : Fragment(), IFragmentData {
         if (bool_contrasena && bool_r_contrasena){
             if (binding.ctxContrasena.editText?.text.toString() != binding.ctxRContrasena.editText?.text.toString()){
                 Toast.makeText(requireContext(),"Las contraseñas no coinciden",Toast.LENGTH_SHORT).show()
+                vmRegistro.ldata_registro.value?.frag_contrasena_verificado = false
                 return false
+            } else{
+                vmRegistro.ldata_registro.value?.frag_contrasena_verificado = true
+                return true
             }
+        } else{
+            return false
         }
-        return bool_contrasena && bool_r_contrasena
+
     }
 }

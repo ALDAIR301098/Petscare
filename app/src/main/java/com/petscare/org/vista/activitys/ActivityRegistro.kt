@@ -62,16 +62,43 @@ class ActivityRegistro : AppCompatActivity() {
             }
             0 -> transaction.replace(R.id.contenedor_frags_registro,frag_nombre).commit()
             1 -> {
-                transaction.replace(R.id.contenedor_frags_registro,frag_edad_genero).commit()
-                binding.fabSiguiente.setText("Siguiente")
+                if (vmRegistro.ldata_registro.value?.frag_nombre_verificado == true){
+                    transaction.replace(R.id.contenedor_frags_registro,frag_edad_genero).commit()
+                    binding.fabSiguiente.text = "Siguiente"
+                } else{
+                    if (frag_nombre.verificarCampos()){
+                        transaction.replace(R.id.contenedor_frags_registro,frag_edad_genero).commit() //Aqui estoy y el frag verification = true
+                        binding.fabSiguiente.text = "Siguiente"
+                    } else{
+                        frag_index--
+                    }
+                }
             }
             2 -> {
-                transaction.replace(R.id.contenedor_frags_registro,frag_contrasena).commit()
-                binding.fabSiguiente.text = "Terminar"
+                if(vmRegistro.ldata_registro.value?.frag_edad_genero_verificado == true){
+                    transaction.replace(R.id.contenedor_frags_registro,frag_contrasena).commit()
+                    binding.fabSiguiente.text = "Terminar"
+                } else{
+                    if (frag_edad_genero.verificarCampos()){
+                        transaction.replace(R.id.contenedor_frags_registro,frag_contrasena).commit()
+                        binding.fabSiguiente.text = "Terminar"
+                    } else{
+                        frag_index--
+                    }
+                }
             }
             3 -> {
-                transaction.replace(R.id.contenedor_frags_registro,frag_terminar).commit()
-                binding.fabSiguiente.text = "Ingresar"
+                if (vmRegistro.ldata_registro.value?.frag_contrasena_verificado == true){
+                    transaction.replace(R.id.contenedor_frags_registro,frag_terminar).commit()
+                    binding.fabSiguiente.text = "Ingresar"
+                } else{
+                    if (frag_contrasena.verificarCampos()){
+                        transaction.replace(R.id.contenedor_frags_registro,frag_terminar).commit()
+                        binding.fabSiguiente.text = "Ingresar"
+                    } else{
+                        frag_index--
+                    }
+                }
             }
             4 -> {
                 startActivity(Intent(this,ActivityMenu::class.java))

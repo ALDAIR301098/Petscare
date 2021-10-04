@@ -53,7 +53,13 @@ class FragmentNombre : Fragment(), IFragmentData{
             binding.ctxApellidos.error = "Ingrese los apellidos"
         }
 
-        return bool_nombre && bool_apellidos
+        return if (bool_nombre && bool_apellidos){
+            vmRegistro.ldata_registro.value?.frag_nombre_verificado = true
+            true
+        } else{
+            vmRegistro.ldata_registro.value?.frag_nombre_verificado = false
+            false
+        }
     }
 
     override fun salvarDatos() {

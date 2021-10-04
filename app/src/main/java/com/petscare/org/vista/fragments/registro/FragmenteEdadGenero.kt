@@ -123,10 +123,16 @@ class FragmenteEdadGenero : Fragment(), IFragmentData {
             binding.ctxGenero.error = null
         } else{
             bool_genero = false
-            binding.ctxCorreo.error = "Seleccione su genero"
+            binding.ctxGenero.error = "Seleccione su genero"
         }
 
-        return bool_fecha && bool_correo && bool_genero
+        return if (bool_fecha && bool_correo && bool_genero){
+            vmRegistro.ldata_registro.value?.frag_edad_genero_verificado = true
+            true
+        } else{
+            vmRegistro.ldata_registro.value?.frag_edad_genero_verificado = false
+            false
+        }
     }
 
     override fun onPause() {
