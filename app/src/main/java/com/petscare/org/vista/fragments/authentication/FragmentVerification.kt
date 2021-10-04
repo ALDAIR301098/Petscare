@@ -1,4 +1,4 @@
-package com.petscare.org.view.fragments.authentication
+package com.petscare.org.vista.fragments.authentication
 
 import android.content.Context
 import android.content.res.ColorStateList.*
@@ -14,16 +14,16 @@ import androidx.core.os.bundleOf
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
-import com.petscare.org.view.Interfaces.onNextFragmentListener
+import com.petscare.org.vista.Interfaces.onNextFragmentListener
 import com.petscare.org.R
-import com.petscare.org.databinding.FragVerificationBinding
+import com.petscare.org.databinding.FragmentVerificationBinding
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class FragmentVerification : Fragment() {
 
     //Objetos para la vinculacióin de vistas (View Binding)
-    private var _binding: FragVerificationBinding? = null
+    private var _binding: FragmentVerificationBinding? = null
     private val binding get() = _binding!!
 
     //Objetos para el uso de Firebase Phone Auth
@@ -38,7 +38,7 @@ class FragmentVerification : Fragment() {
     private lateinit var change_frag_listener : onNextFragmentListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragVerificationBinding.inflate(inflater, container, false)
+        _binding = FragmentVerificationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

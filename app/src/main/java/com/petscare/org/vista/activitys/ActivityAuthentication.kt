@@ -1,18 +1,18 @@
-package com.petscare.org.view.activitys
+package com.petscare.org.vista.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.petscare.org.view.Interfaces.onNextFragmentListener
+import com.petscare.org.vista.Interfaces.onNextFragmentListener
 import com.petscare.org.R
-import com.petscare.org.databinding.ActAuthenticationBinding
-import com.petscare.org.view.fragments.authentication.FragmentAuthentication
-import com.petscare.org.view.fragments.authentication.FragmentVerification
+import com.petscare.org.databinding.ActivityAuthenticationBinding
+import com.petscare.org.vista.fragments.authentication.FragmentAuthentication
+import com.petscare.org.vista.fragments.authentication.FragmentVerification
 
 class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
 
-    private lateinit var binding : ActAuthenticationBinding
+    private lateinit var binding : ActivityAuthenticationBinding
     private lateinit var frag_authentication : Fragment
     private lateinit var frag_verification : Fragment
     private var frag_index : Int = 0
@@ -22,7 +22,7 @@ class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
         setTheme(R.style.THEME_TOOLBAR_ACTIVITY)
         super.onCreate(savedInstanceState)
 
-        binding = ActAuthenticationBinding.inflate(layoutInflater)
+        binding = ActivityAuthenticationBinding.inflate(layoutInflater)
         auth_mode = intent.extras?.getString("auth_mode").toString()
 
         setContentView(binding.root)
@@ -53,7 +53,7 @@ class ActivityAuthentication : AppCompatActivity(), onNextFragmentListener{
         } else if (frag_index == 1 && auth_mode == "login"){
             cambiarActivity(Intent(this,ActivityMenu::class.java))
         } else if(frag_index == 1 && auth_mode == "register"){
-            cambiarActivity(Intent(this,ActivityRegister::class.java))
+            cambiarActivity(Intent(this,ActivityRegistro::class.java))
         }
     }
 

@@ -1,4 +1,4 @@
-package com.petscare.org.view.fragments.menu;
+package com.petscare.org.vista.fragments.menu;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.petscare.org.R;
 
-public class ThirdFragment extends Fragment {
-
+public class FragmentPerfil extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        return inflater.inflate(R.layout.fragment_perfil, container, false);
     }
 }

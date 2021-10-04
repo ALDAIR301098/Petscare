@@ -1,24 +1,21 @@
-package com.petscare.org.view.activitys
-
+package com.petscare.org.vista.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import com.petscare.org.R
-import com.petscare.org.databinding.ActRegisterBinding
-import com.petscare.org.view.fragments.register.FragmentContrasena
-import com.petscare.org.view.fragments.register.FragmentTerminar
-import com.petscare.org.view.fragments.register.FragmentNombre
-import com.petscare.org.view.fragments.register.FragmenteEdadGenero
+import com.petscare.org.databinding.ActivityRegistroBinding
+import com.petscare.org.vista.fragments.registro.FragmentContrasena
+import com.petscare.org.vista.fragments.registro.FragmentTerminar
+import com.petscare.org.vista.fragments.registro.FragmentNombre
+import com.petscare.org.vista.fragments.registro.FragmenteEdadGenero
 import com.petscare.org.viewmodel.ViewModelRegistro
 
-class ActivityRegister : AppCompatActivity() {
+class ActivityRegistro : AppCompatActivity() {
 
-    private lateinit var binding: ActRegisterBinding
+    private lateinit var binding: ActivityRegistroBinding
     private val vmRegistro : ViewModelRegistro by viewModels()
 
     private lateinit var frag_nombre : FragmentNombre
@@ -31,12 +28,13 @@ class ActivityRegister : AppCompatActivity() {
         setTheme(R.style.THEME_GLOBAL_APP)
         super.onCreate(savedInstanceState)
 
-        binding = ActRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         crearFragments()
         mostrarFragment()
         eventosUI()
+
     }
 
     private fun crearFragments() {
@@ -49,18 +47,32 @@ class ActivityRegister : AppCompatActivity() {
 
     private fun eventosUI() {
         binding.fabSiguiente.setOnClickListener {
-            frag_index++
-            mostrarFragment() }
+                frag_index++
+                mostrarFragment()
+
+        }
     }
 
     private fun mostrarFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        Toast.makeText(this,"index: $frag_index",Toast.LENGTH_SHORT).show()
         when(frag_index){
+            -1 -> {
+                Toast.makeText(this,"No puedes cancelar el registro de datos",Toast.LENGTH_SHORT).show()
+                frag_index++
+            }
             0 -> transaction.replace(R.id.contenedor_frags_registro,frag_nombre).commit()
-            1 -> transaction.replace(R.id.contenedor_frags_registro,frag_edad_genero).commit()
-            2 -> transaction.replace(R.id.contenedor_frags_registro,frag_contrasena).commit()
-            3 -> transaction.replace(R.id.contenedor_frags_registro,frag_terminar).commit()
+            1 -> {
+                transaction.replace(R.id.contenedor_frags_registro,frag_edad_genero).commit()
+                binding.fabSiguiente.setText("Siguiente")
+            }
+            2 -> {
+                transaction.replace(R.id.contenedor_frags_registro,frag_contrasena).commit()
+                binding.fabSiguiente.text = "Terminar"
+            }
+            3 -> {
+                transaction.replace(R.id.contenedor_frags_registro,frag_terminar).commit()
+                binding.fabSiguiente.text = "Ingresar"
+            }
             4 -> {
                 startActivity(Intent(this,ActivityMenu::class.java))
                 finish()
@@ -69,16 +81,12 @@ class ActivityRegister : AppCompatActivity() {
     }
 
     override fun onPause() {
-        vmRegistro.guardarDataRegistro(frag_index)
+        vmRegistro.establecerIndex(frag_index)
         super.onPause()
     }
 
     override fun onBackPressed() {
         frag_index--
-        if (frag_index<0){
-            Toast.makeText(this,"No puedes cancelar el registro de datos",Toast.LENGTH_SHORT).show()
-        } else{
-            mostrarFragment()
-        }
+        mostrarFragment()
     }
 }

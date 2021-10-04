@@ -1,4 +1,4 @@
-package com.petscare.org.view.activitys
+package com.petscare.org.vista.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.petscare.org.databinding.ActWelcomeBinding
+import com.petscare.org.databinding.ActivityWelcomeBinding
 
 class ActivityWelcome : AppCompatActivity(){
 
-    private lateinit var binding : ActWelcomeBinding
+    private lateinit var binding : ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        binding = ActWelcomeBinding.inflate(layoutInflater)
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         retardarSplashScreen()
@@ -52,7 +52,7 @@ class ActivityWelcome : AppCompatActivity(){
             finish()
         }
         binding.imgPajaro.setOnClickListener {
-            startActivity(Intent(this,ActivityRegister::class.java))
+            startActivity(Intent(this,ActivityRegistro::class.java))
             finish()
         }
     }

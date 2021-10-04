@@ -1,4 +1,4 @@
-package com.petscare.org.view.fragments.authentication
+package com.petscare.org.vista.fragments.authentication
 
 import android.content.Context
 import android.os.Bundle
@@ -7,18 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import com.petscare.org.databinding.FragAuthenticationBinding
-import com.petscare.org.view.Interfaces.onNextFragmentListener
+import com.petscare.org.databinding.FragmentAuthenticationBinding
+import com.petscare.org.vista.Interfaces.onNextFragmentListener
 
 class FragmentAuthentication : Fragment() {
 
-    private var _binding: FragAuthenticationBinding? = null
+    private var _binding: FragmentAuthenticationBinding? = null
     private val binding get() = _binding!!
     private lateinit var telefono: String
     private lateinit var change_frag_listener : onNextFragmentListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragAuthenticationBinding.inflate(inflater, container, false)
+        _binding = FragmentAuthenticationBinding.inflate(inflater, container, false)
         return binding.root
     }
 

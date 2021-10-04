@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/THEME_SPLASH_SCREEN">
         <activity
-            android:name="com.petscare.org.view.activitys.ActivityRegister"
+            android:name="com.petscare.org.vista.activitys.ActivityRegistro"
             android:exported="true" />
         <activity
-            android:name="com.petscare.org.view.activitys.ActivityAuthentication"
+            android:name="com.petscare.org.vista.activitys.ActivityAuthentication"
             android:exported="true" />
         <activity
-            android:name="com.petscare.org.view.activitys.ActivityMenu"
+            android:name="com.petscare.org.vista.activitys.ActivityMenu"
             android:exported="true" />
         <activity
-            android:name="com.petscare.org.view.activitys.ActivityWelcome"
+            android:name="com.petscare.org.vista.activitys.ActivityWelcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

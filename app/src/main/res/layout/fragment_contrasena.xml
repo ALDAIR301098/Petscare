@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.register.FragmentContrasena">
+    tools:context=".vista.fragments.registro.FragmentContrasena">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_genero"
+            android:id="@+id/ctx_r_contrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:boxCornerRadiusTopEnd="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_fecha_nacimiento"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_contrasena"
             app:startIconDrawable="@drawable/ic_candado">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -44,7 +44,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_fecha_nacimiento"
+            android:id="@+id/ctx_contrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

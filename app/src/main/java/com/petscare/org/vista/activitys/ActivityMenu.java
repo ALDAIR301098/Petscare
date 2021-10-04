@@ -1,4 +1,4 @@
-package com.petscare.org.view.activitys;
+package com.petscare.org.vista.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,16 +8,16 @@ import com.petscare.org.R;
 
 public class ActivityMenu extends AppCompatActivity {
 /*
-    FirstFragment firstFragment = new FirstFragment();
-    SecondFragment secondFragment = new SecondFragment();
-    ThirdFragment thirdFragment = new ThirdFragment();
-    FourFragment fourFragment = new FourFragment();*/
+    FragmentFeed firstFragment = new FragmentFeed();
+    FragmentMascotas secondFragment = new FragmentMascotas();
+    FragmentServicios thirdFragment = new FragmentServicios();
+    FragmentPerfil fourFragment = new FragmentPerfil();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.THEME_GLOBAL_APP);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_menu);
+        setContentView(R.layout.activity_menu);
 
        /* BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener); */
