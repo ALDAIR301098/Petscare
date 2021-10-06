@@ -14,8 +14,6 @@ import com.petscare.org.vista.Interfaces.IFragmentData
 
 class FragmentContrasena : Fragment(), IFragmentData {
 
-    //
-
     private val vmRegistro : ViewModelRegistro by activityViewModels()
     private var _binding : FragmentContrasenaBinding? = null
     private val binding get() = _binding!!
