@@ -4,54 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.fragments.registro.FragmentNombre">
+    tools:context=".vista.fragments.registro.FragmentPaisTelefono">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_nombre"
-            android:layout_width="match_parent"
+            android:id="@+id/ctx_pais"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_elegir"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_perfil">
+            app:startIconDrawable="@drawable/ic_mundo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="aábcçdeéfghiíjklmnñoópqrstuvwxyz AÁBCDEÉFGHIÍJKLMNOÓPQRSTUVWXYZ"
-                android:hint="Nombre"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName|textCapWords"
-                android:singleLine="true" />
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="País"
+                android:inputType="textShortMessage|textNoSuggestions|text" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn_elegir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/cafe"
+            android:text="Elegir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_apellidos"
-            android:layout_width="match_parent"
+            android:id="@+id/ctx_telefono"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_nombre"
-            app:startIconDrawable="@drawable/ic_perfil">
+            app:layout_constraintTop_toBottomOf="@+id/ctx_pais"
+            app:startIconDrawable="@drawable/ic_phone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Apellidos"
-                android:digits="aábcçdeéfghiíjklmnñoópqrstuvwxyz AÁBCDEÉFGHIÍJKLMNOÓPQRSTUVWXYZ"
-                android:singleLine="true"
+                android:digits="0123456789"
+                android:hint="Teléfono"
                 android:imeOptions="actionDone"
-                android:inputType="textPersonName|textCapWords" />
+                android:inputType="phone"
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -64,8 +78,6 @@
             app:icon="@drawable/ic_siguiente"
             app:iconTint="@color/blanco"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_apellidos" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/ctx_telefono" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

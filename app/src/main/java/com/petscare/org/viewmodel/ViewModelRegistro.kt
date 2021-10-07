@@ -2,36 +2,81 @@ package com.petscare.org.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.petscare.org.modelo.ModeloRegistro
+import com.petscare.org.modelo.ModeloDatosRegistro
 
-class ViewModelRegistro: ViewModel() {
-    var ldata_registro = MutableLiveData<ModeloRegistro>()
+class ViewModelRegistro : ViewModel() {
+    val ldata_registro = MutableLiveData<ModeloDatosRegistro>()
 
     init {
-        ldata_registro.value = ModeloRegistro()
+        ldata_registro.value = ModeloDatosRegistro()
     }
 
-    fun establecerIndex(index:Int){
+    fun setIndex(index: Int) {
         ldata_registro.value?.frag_index = index
     }
 
-    fun establecerNombre(nombre : String, apellidos : String){
+    fun setNombre(nombre: String) {
         ldata_registro.value?.nombre = nombre
+    }
+
+    fun setApellidos(apellidos: String) {
         ldata_registro.value?.apellidos = apellidos
     }
 
-    fun establecerInfoBasica(fecha_cumpleanos : String, correo : String, genero : String){
-        ldata_registro.value?.fecha_nacimiento = fecha_cumpleanos
-        ldata_registro.value?.correo = correo
+    fun setFechaNacimiento(fecha_nacimiento: String) {
+        ldata_registro.value?.fecha_nacimiento = fecha_nacimiento
+    }
+
+    fun setGenero(genero: String) {
         ldata_registro.value?.genero = genero
     }
 
-    fun establecerTelefono(telefono:String){
+    fun setPais(pais : String){
+        ldata_registro.value?.pais = pais
+    }
+
+    fun setLada(lada : String){
+        ldata_registro.value?.lada = lada
+    }
+
+    fun setTelefono(telefono : String){
         ldata_registro.value?.telefono = telefono
     }
 
-    fun establecerContrasena(contrasena : String, r_contrasena : String){
-        ldata_registro.value?.contrasena = contrasena
-        ldata_registro.value?.r_contrasena = r_contrasena
+    fun setCorreo(correo: String) {
+        ldata_registro.value?.correo = correo
     }
+
+    fun setContrasena(contrasena: String) {
+        ldata_registro.value?.contrasena = contrasena
+    }
+
+    fun getIndex(): Int?{
+        return ldata_registro.value?.frag_index
+    }
+
+    fun getNombre(): String? {
+        return ldata_registro.value?.nombre
+    }
+
+    fun getApellidos(): String? {
+        return ldata_registro.value?.apellidos
+    }
+
+    fun getFechaNacimiento(): String? {
+        return ldata_registro.value?.fecha_nacimiento
+    }
+
+    fun getCorreo(): String? {
+        return ldata_registro.value?.correo
+    }
+
+    fun getGenero(): String? {
+        return ldata_registro.value?.genero
+    }
+
+    fun getContrasena(): String? {
+        return ldata_registro.value?.contrasena
+    }
+
 }

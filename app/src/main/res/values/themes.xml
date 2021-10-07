@@ -33,7 +33,7 @@
     <style name="STYLE_TEXT_PARRAFOS" parent="android:Widget.TextView">
         <item name="android:textColor">@color/parrafos</item>
         <item name="fontFamily">@font/google_sans_regular</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:justificationMode" tools:targetApi="o">inter_word</item>
     </style>
 
@@ -59,10 +59,10 @@
 
     <style name="STYLE_CUSTOM_MATERIAL_TEXT_INPUT_lAYOUT" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="colorPrimary">@color/cafe</item>
-        <item name="boxCornerRadiusBottomEnd">15dp</item>
-        <item name="boxCornerRadiusBottomStart">15dp</item>
-        <item name="boxCornerRadiusTopEnd">15dp</item>
-        <item name="boxCornerRadiusTopStart">15dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
     </style>
 
     <style name="SPINNER" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">

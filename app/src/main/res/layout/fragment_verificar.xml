@@ -4,68 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.fragments.registro.FragmentNombre">
+    tools:context=".vista.fragments.registro.FragmentVerificar">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_nombre"
-            android:layout_width="match_parent"
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_perfil">
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:startIconDrawable="@drawable/ic_mensaje">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:digits="aábcçdeéfghiíjklmnñoópqrstuvwxyz AÁBCDEÉFGHIÍJKLMNOÓPQRSTUVWXYZ"
-                android:hint="Nombre"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName|textCapWords"
-                android:singleLine="true" />
+                android:hint="Código" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_apellidos"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/STYLE_TEXT_TITULOS"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:text="Ingresa el código enviado al:\n+52 3221827267"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_nombre"
-            app:startIconDrawable="@drawable/ic_perfil">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Apellidos"
-                android:digits="aábcçdeéfghiíjklmnñoópqrstuvwxyz AÁBCDEÉFGHIÍJKLMNOÓPQRSTUVWXYZ"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName|textCapWords" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_siguiente"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:text="Siguiente"
+            android:text="Verificar"
             app:icon="@drawable/ic_siguiente"
             app:iconTint="@color/blanco"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_apellidos" />
-
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

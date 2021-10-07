@@ -8,7 +8,7 @@ import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.petscare.org.databinding.ActivityWelcomeBinding
 
-class ActivityWelcome : AppCompatActivity(){
+class ActivityBienvenida : AppCompatActivity(){
 
     private lateinit var binding : ActivityWelcomeBinding
 
@@ -53,7 +53,6 @@ class ActivityWelcome : AppCompatActivity(){
         }
         binding.imgPajaro.setOnClickListener {
             startActivity(Intent(this,ActivityRegistro::class.java))
-            finish()
         }
     }
 }

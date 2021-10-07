@@ -10,16 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Información general"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ctx_fecha_nacimiento"
             android:layout_width="match_parent"
@@ -27,14 +17,12 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            app:boxCornerRadiusTopEnd="15dp"
-            app:boxCornerRadiusTopStart="0dp"
             app:counterEnabled="true"
             app:counterMaxLength="10"
             app:helperText="dd/mm/aaaa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_info"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_genero"
             app:startIconDrawable="@drawable/ic_calendario">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -42,29 +30,9 @@
                 android:layout_height="wrap_content"
                 android:digits="0123456789/"
                 android:hint="Fecha de nacimiento"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="date"
                 android:maxLength="10" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_correo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_fecha_nacimiento"
-            app:startIconDrawable="@drawable/ic_correo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Correo"
-                android:imeOptions="actionDone"
-                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -75,15 +43,16 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            app:boxCornerRadiusBottomEnd="15dp"
-            app:boxCornerRadiusBottomStart="15dp"
-            app:boxCornerRadiusTopStart="15dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/outlined_box_stroke_color"
             app:endIconTint="@color/dropdown_menu"
             app:hintTextColor="@color/secundario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_correo"
+            app:layout_constraintTop_toTopOf="parent"
             app:startIconDrawable="@drawable/ic_genero">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -93,6 +62,18 @@
                 android:hint="Genero"
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_siguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="Siguiente"
+            app:icon="@drawable/ic_siguiente"
+            app:iconTint="@color/blanco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_fecha_nacimiento" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

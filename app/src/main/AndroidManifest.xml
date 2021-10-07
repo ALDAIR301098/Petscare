@@ -19,7 +19,7 @@
             android:name="com.petscare.org.vista.activitys.ActivityMenu"
             android:exported="true" />
         <activity
-            android:name="com.petscare.org.vista.activitys.ActivityWelcome"
+            android:name="com.petscare.org.vista.activitys.ActivityBienvenida"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

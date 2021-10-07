@@ -4,42 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vista.fragments.registro.FragmentContrasena">
+    tools:context=".vista.fragments.registro.FragmentCorreoContrasena">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Credenciales de seguridad"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ctx_r_contrasena"
+            android:id="@+id/ctx_correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            app:endIconMode="password_toggle"
+            app:endIconMode="none"
+            app:helperText="No obligatorio"
             app:layout_constraintEnd_toEndOf="parent"
-            app:boxCornerRadiusTopEnd="0dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_contrasena"
-            app:startIconDrawable="@drawable/ic_candado">
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_correo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirmar contraseña"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
+                android:hint="Correo"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,19 +41,30 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             app:endIconMode="password_toggle"
-            app:boxCornerRadiusTopStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_info"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_correo"
             app:startIconDrawable="@drawable/ic_candado">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_terminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="Terminar"
+            app:icon="@drawable/ic_siguiente"
+            app:iconTint="@color/blanco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_contrasena" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

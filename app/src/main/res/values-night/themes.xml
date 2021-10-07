@@ -32,7 +32,7 @@
     <style name="STYLE_TEXT_PARRAFOS" parent="android:Widget.TextView">
         <item name="android:textColor">@color/parrafos</item>
         <item name="fontFamily">@font/google_sans_regular</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="STYLE_MATERIAL_BUTTON" parent="Widget.MaterialComponents.Button">
