@@ -83,10 +83,6 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
                 transaction.replace(R.id.contenedor_frags_registro, frag_terminar).commit()
                 binding.txtInfo.visibility = View.GONE
             }
-            6 -> {
-                startActivity(Intent(this, ActivityMenu::class.java))
-                finish()
-            }
         }
     }
 

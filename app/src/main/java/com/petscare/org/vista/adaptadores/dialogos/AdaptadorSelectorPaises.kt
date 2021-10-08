@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import java.util.ArrayList
 
 class AdaptadorSelectorPaises(private val actividad: Activity, layout: Int, private val lista_items: ArrayList<ModeloPais>)
     : ArrayAdapter<ModeloPais>(actividad, layout, lista_items) {

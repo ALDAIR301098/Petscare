@@ -6,7 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.petscare.org.R
 import com.petscare.org.databinding.ActivityWelcomeBinding
+import com.petscare.org.modelo.ModeloProveedorAuth
+import com.petscare.org.vista.adaptadores.dialogos.AdaptadorListaOpciones
+import com.petscare.org.vista.adaptadores.dialogos.AdaptadorSelectorPaises
+import java.util.ArrayList
 
 class ActivityBienvenida : AppCompatActivity(){
 
@@ -43,9 +49,7 @@ class ActivityBienvenida : AppCompatActivity(){
             startActivity(intent)
         }
         binding.btnRegistrar.setOnClickListener {
-            val intent = Intent(this,ActivityAuthentication::class.java)
-            intent.putExtra("auth_mode","register")
-            startActivity(intent)
+            mostrarSelectorProovedorAutenticacion()
         }
         binding.imgLogo.setOnClickListener {
             startActivity(Intent(this,ActivityMenu::class.java))
@@ -54,5 +58,23 @@ class ActivityBienvenida : AppCompatActivity(){
         binding.imgPajaro.setOnClickListener {
             startActivity(Intent(this,ActivityRegistro::class.java))
         }
+    }
+
+    private fun mostrarSelectorProovedorAutenticacion() {
+        val items = ArrayList<ModeloProveedorAuth>()
+        items.add(ModeloProveedorAuth("Telefono", R.drawable.ic_phone))
+        items.add(ModeloProveedorAuth("Google",R.drawable.ic_google))
+        items.add(ModeloProveedorAuth("Facebook",R.drawable.ic_facebook))
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Registrarme mediante")
+            .setAdapter(AdaptadorListaOpciones.getAdaptador(this,items)) { dialogInterface, index ->
+                when(index){
+                    0 -> {
+                        startActivity(Intent(this,ActivityRegistro::class.java))
+                    }
+                }
+            }
+            .show()
     }
 }
