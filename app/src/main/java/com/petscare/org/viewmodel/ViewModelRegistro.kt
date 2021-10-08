@@ -67,12 +67,24 @@ class ViewModelRegistro : ViewModel() {
         return ldata_registro.value?.fecha_nacimiento
     }
 
-    fun getCorreo(): String? {
-        return ldata_registro.value?.correo
-    }
-
     fun getGenero(): String? {
         return ldata_registro.value?.genero
+    }
+
+    fun getPais(): String? {
+        return ldata_registro.value?.pais
+    }
+
+    fun getLada(): String? {
+        return ldata_registro.value?.lada
+    }
+
+    fun getTelefono(): String? {
+        return ldata_registro.value?.telefono
+    }
+
+    fun getCorreo(): String? {
+        return ldata_registro.value?.correo
     }
 
     fun getContrasena(): String? {

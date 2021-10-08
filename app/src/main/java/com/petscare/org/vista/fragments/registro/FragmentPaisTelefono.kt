@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.petscare.org.R
 import com.petscare.org.databinding.FragmentPaisTelefonoBinding
@@ -36,7 +37,15 @@ class FragmentPaisTelefono : Fragment(), AdminDataFragments {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observarLiveData()
         eventosUI()
+    }
+
+    private fun observarLiveData() {
+        vm_registro.ldata_registro.observe(viewLifecycleOwner, { ldata_registro ->
+            binding.ctxPais.editText?.setText(ldata_registro.pais)
+            binding.ctxTelefono.editText?.setText(ldata_registro.telefono)
+        })
     }
 
     private fun eventosUI() {
@@ -83,6 +92,7 @@ class FragmentPaisTelefono : Fragment(), AdminDataFragments {
 
     override fun salvarDatos() {
         vm_registro.setPais(binding.ctxPais.editText?.text.toString())
+        vm_registro.setLada(binding.ctxTelefono.prefixText.toString())
         vm_registro.setTelefono(binding.ctxTelefono.editText?.text.toString())
     }
 

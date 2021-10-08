@@ -17,7 +17,7 @@
     <!-- Colores de componentes normales -->
     <color name="secundario">@color/cafe</color>
     <color name="text_buttoon_outlined">@color/gris</color>
-    <color name="contorno">@color/gris</color>
+    <color name="contorno">#54000000</color>
     <color name="fondo_ventana">@color/blanco</color>
     <color name="fondo_toolbar">@null</color>
     <color name="boton_reenviar_corregir">@color/amarillo_fuerte</color>

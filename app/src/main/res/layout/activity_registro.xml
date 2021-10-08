@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         style="@style/Widget.MaterialComponents.Toolbar.Surface"
         android:layout_width="match_parent"
         android:layout_height="260dp"
@@ -29,7 +30,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
-                app:title="Registrar Usuario"
+                app:title="Registrarme"
                 app:titleTextAppearance="@style/APARIENCIA_MATERIAL_TOOLBAR_TITLE_TEXT" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,12 +70,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/txt_info">
 
             </FrameLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/txt_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"

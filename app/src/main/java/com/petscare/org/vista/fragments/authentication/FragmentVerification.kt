@@ -131,9 +131,7 @@ class FragmentVerification : Fragment() {
     }
 
     private fun eventosUI() {
-        binding.btnVerificar.setOnClickListener {
-            verificarCampoCodigo()
-        }
+        binding.btnVerificar.setOnClickListener { verificarCampoCodigo() }
     }
 
     private fun verificarCampoCodigo() {

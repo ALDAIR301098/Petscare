@@ -11,48 +11,61 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/ctx_codigo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/txt_numero"
             app:startIconDrawable="@drawable/ic_mensaje">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Código" />
+                android:hint="Código"
+                android:inputType="number"
+                android:maxLength="6" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView6"
-            style="@style/STYLE_TEXT_TITULOS"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:text="Ingresa el código enviado al:\n+52 3221827267"
-            android:gravity="center"
+            android:text="Por favor, ingresa el código de verificación que se envió al siguiente número teléfonico:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_terminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:text="Verificar"
+            android:text="Terminar"
             app:icon="@drawable/ic_siguiente"
             app:iconTint="@color/blanco"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/ctx_codigo" />
+
+        <TextView
+            android:id="@+id/txt_numero"
+            style="@style/STYLE_TEXT_TITULOS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="+52 3221827267"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

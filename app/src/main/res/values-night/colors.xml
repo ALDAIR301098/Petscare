@@ -13,7 +13,7 @@
 
     <!-- Colores de componentes normales -->
     <color name="text_buttoon_outlined">@color/gris</color>
-    <color name="contorno">@color/gris</color>
+    <color name="contorno">#54FFFFFF</color>
     <color name="fondo_ventana">#121212</color>
     <color name="fondo_toolbar">#242424</color>
     <color name="boton_reenviar_corregir">#242424</color>

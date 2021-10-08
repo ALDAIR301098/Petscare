@@ -39,8 +39,8 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
 
     private fun observarLiveData() {
         vmRegistro.ldata_registro.observe(viewLifecycleOwner, Observer { ldata_registro ->
+            binding.ctxCorreo.editText?.setText(ldata_registro.correo)
             binding.ctxContrasena.editText?.setText(ldata_registro.contrasena)
-
         })
     }
 
@@ -98,6 +98,7 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
     }
 
     override fun salvarDatos() {
+        vmRegistro.setCorreo(binding.ctxCorreo.editText?.text.toString())
         vmRegistro.setContrasena(binding.ctxContrasena.editText?.text.toString())
     }
 }

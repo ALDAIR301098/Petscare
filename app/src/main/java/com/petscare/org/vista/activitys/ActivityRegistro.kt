@@ -3,9 +3,13 @@ package com.petscare.org.vista.activitys
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentTransaction
 import com.petscare.org.R
 import com.petscare.org.databinding.ActivityRegistroBinding
+import com.petscare.org.utilidades.KeyboardUtils
 import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener
 import com.petscare.org.vista.fragments.registro.*
@@ -18,8 +22,8 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
     private var index: Int = 0
     private lateinit var frag_nombre: FragmentNombre
     private lateinit var frag_edad_genero: FragmenteEdadGenero
-    private lateinit var frag_pais_telefono : FragmentPaisTelefono
-    private lateinit var frag_verificacion : FragmentVerificar
+    private lateinit var frag_pais_telefono: FragmentPaisTelefono
+    private lateinit var frag_verificacion: FragmentVerificar
     private lateinit var frag_correo_Correo_contrasena: FragmentCorreoContrasena
     private lateinit var frag_terminar: FragmentTerminar
 
@@ -32,6 +36,20 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
 
         crearFragments()
         mostrarFragment(index)
+        observarTeclado()
+    }
+
+    private fun observarTeclado() {
+        KeyboardUtils.addKeyboardToggleListener(this,
+            object : KeyboardUtils.SoftKeyboardToggleListener {
+                override fun onToggleSoftKeyboard(isVisible: Boolean) {
+                    if (isVisible) {
+                        binding.appBar.setExpanded(false, true)
+                    } else {
+                        binding.appBar.setExpanded(true, true)
+                    }
+                }
+            })
     }
 
     private fun crearFragments() {
@@ -46,15 +64,25 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
 
     override fun mostrarFragment(index: Int) {
         val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
         this.index = index
         when (this.index) {
-            -1 -> finish()
             0 -> transaction.replace(R.id.contenedor_frags_registro, frag_nombre).commit()
             1 -> transaction.replace(R.id.contenedor_frags_registro, frag_edad_genero).commit()
-            2 -> transaction.replace(R.id.contenedor_frags_registro, frag_correo_Correo_contrasena).commit()
-            3 -> transaction.replace(R.id.contenedor_frags_registro, frag_pais_telefono).commit()
-            4 -> transaction.replace(R.id.contenedor_frags_registro, frag_verificacion).commit()
-            5 -> transaction.replace(R.id.contenedor_frags_registro, frag_correo_Correo_contrasena).commit()
+            2 -> transaction.replace(R.id.contenedor_frags_registro, frag_correo_Correo_contrasena)
+                .commit()
+            3 -> {
+                transaction.replace(R.id.contenedor_frags_registro, frag_pais_telefono).commit()
+                binding.txtInfo.text = "Información de la cuenta"
+            }
+            4 -> {
+                transaction.replace(R.id.contenedor_frags_registro, frag_verificacion).commit()
+                binding.txtInfo.text = "Verificación de la cuenta"
+            }
+            5 -> {
+                transaction.replace(R.id.contenedor_frags_registro, frag_terminar).commit()
+                binding.txtInfo.visibility = View.GONE
+            }
             6 -> {
                 startActivity(Intent(this, ActivityMenu::class.java))
                 finish()
@@ -68,6 +96,15 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
     }
 
     override fun onBackPressed() {
-        mostrarFragment(--this.index)
+        this.index--
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.slide_out, R.anim.slide_in, R.anim.fade_out)
+        when (this.index) {
+            -1 -> finish()
+            0 -> transaction.replace(R.id.contenedor_frags_registro, frag_nombre).commit()
+            1 -> transaction.replace(R.id.contenedor_frags_registro, frag_edad_genero).commit()
+            2 -> transaction.replace(R.id.contenedor_frags_registro, frag_correo_Correo_contrasena).commit()
+            else -> index++
+        }
     }
 }
