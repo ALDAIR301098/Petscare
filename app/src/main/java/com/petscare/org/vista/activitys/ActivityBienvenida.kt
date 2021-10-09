@@ -9,9 +9,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.petscare.org.R
 import com.petscare.org.databinding.ActivityWelcomeBinding
-import com.petscare.org.modelo.ModeloProveedorAuth
+import com.petscare.org.modelo.ModeloItemsSelector
 import com.petscare.org.vista.adaptadores.dialogos.AdaptadorListaOpciones
-import com.petscare.org.vista.adaptadores.dialogos.AdaptadorSelectorPaises
 import java.util.ArrayList
 
 class ActivityBienvenida : AppCompatActivity(){
@@ -55,16 +54,13 @@ class ActivityBienvenida : AppCompatActivity(){
             startActivity(Intent(this,ActivityMenu::class.java))
             finish()
         }
-        binding.imgPajaro.setOnClickListener {
-            startActivity(Intent(this,ActivityRegistro::class.java))
-        }
     }
 
     private fun mostrarSelectorProovedorAutenticacion() {
-        val items = ArrayList<ModeloProveedorAuth>()
-        items.add(ModeloProveedorAuth("Telefono", R.drawable.ic_phone))
-        items.add(ModeloProveedorAuth("Google",R.drawable.ic_google))
-        items.add(ModeloProveedorAuth("Facebook",R.drawable.ic_facebook))
+        val items = ArrayList<ModeloItemsSelector>()
+        items.add(ModeloItemsSelector("Teléfono", R.drawable.ic_phone))
+        items.add(ModeloItemsSelector("Google",R.drawable.ic_google))
+        items.add(ModeloItemsSelector("Facebook",R.drawable.ic_facebook))
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Registrarme mediante")
