@@ -9,10 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.petscare.org.R
 import com.petscare.org.databinding.FragmentEdadGeneroBinding
+import com.petscare.org.utilidades.KeyboardUtil
 import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.AdminDataFragments
 import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener
@@ -56,11 +59,6 @@ class FragmenteEdadGenero : Fragment(), AdminDataFragments {
 
     private fun eventosUI() {
 
-        //Llenar el espinner genero con sus valores
-        val lista_genero = listOf("Masculino", "Femenino")
-        val adapter_genero = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, lista_genero)
-        binding.spinnerGenero.setAdapter(adapter_genero)
-
         binding.ctxFechaNacimiento.setStartIconOnClickListener { mostrarSelectorFecha() }
         //Formatear la fecha en tiempo real
         binding.ctxFechaNacimiento.editText?.addTextChangedListener(object : TextWatcher {
@@ -74,7 +72,16 @@ class FragmenteEdadGenero : Fragment(), AdminDataFragments {
                 }
             }
         })
-        binding.btnSiguiente.setOnClickListener { verificarCampos() }
+
+        binding.spinnerGenero.setOnFocusChangeListener { view, has_focus ->
+            if (has_focus){
+                KeyboardUtil.cerrarTeclado(binding.root)
+                //Llenar el espinner genero con sus valores
+                val lista_genero = listOf("Masculino", "Femenino")
+                val adapter_genero = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, lista_genero)
+                binding.spinnerGenero.setAdapter(adapter_genero)
+            }
+        }
     }
 
     private fun mostrarSelectorFecha() {
@@ -90,14 +97,83 @@ class FragmenteEdadGenero : Fragment(), AdminDataFragments {
     }
 
     private fun validarFecha(fecha: String): Boolean {
-        try {
-            val formatoFecha = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            formatoFecha.isLenient = false
-            formatoFecha.parse(fecha)
-        } catch (ex: ParseException) {
+        if (fecha.isNotEmpty()){
+            if (fecha.length == 10 && fecha.get(2).toString().equals("/") && fecha.get(5).toString().equals("/")){
+                val dia = fecha.subSequence(0,2).toString().toInt()
+                val mes = fecha.subSequence(3,5).toString().toInt()
+                val anio = fecha.subSequence(6,10).toString().toInt()
+
+                if(dia in 1..99 && mes in 1..12 && anio in 1900..2100){
+                    when(mes){ // Validar el día segun el mes
+                        2 -> {
+                            val calendario = GregorianCalendar()
+                            if (!calendario.isLeapYear(anio)){                                      //Año no biciesto (28 días)
+                                if (dia == 29){
+                                    binding.ctxFechaNacimiento.error = "Fecha no válida"
+                                    Toast.makeText(context,"Febrero no tiene día 29 en años no biciestos",Toast.LENGTH_LONG).show()
+                                    return false
+                                } else if (dia > 29){
+                                    binding.ctxFechaNacimiento.error = "Fecha no válida"
+                                    Toast.makeText(context,"Febrero no tiene mas de 28  días",Toast.LENGTH_LONG).show()
+                                    return false
+                                }
+                            } else{                                                                 //Año biciesto (29 días)
+                                if (dia > 29){
+                                    binding.ctxFechaNacimiento.error = "Fecha no válida"
+                                    Toast.makeText(context,"Febrero no tiene mas de 29  días",Toast.LENGTH_LONG).show()
+                                    return false
+                                }
+                            }
+                        }
+                        4,6,9,11 -> {
+                            if (dia>30){
+                                binding.ctxFechaNacimiento.error = "Fecha no válida"
+                                Toast.makeText(context, "El mes ingresado solo tiene 30 días",Toast.LENGTH_LONG).show()
+                                return false
+                            }
+                        }
+                        1,3,5,7,8,10,12 -> {
+                            if (dia>31){
+                                binding.ctxFechaNacimiento.error = "Fecha no válida"
+                                Toast.makeText(context, "El mes ingresado solo tiene 31 días",Toast.LENGTH_LONG).show()
+                                return false
+                            }
+                        }
+                    }
+
+                    //Comprobar si tiene mas de 13 años
+                    val calendario = Calendar.getInstance()
+
+                    var anios = calendario.get(Calendar.YEAR) - anio
+                    val meses = (calendario.get(Calendar.MONTH) +1) - mes
+                    val dias = calendario.get(Calendar.DAY_OF_MONTH) - dia
+
+                    if (meses < 0 || (meses == 0 && dias <0)){
+                        anios--
+                    }
+
+                    if (anios >= 13){
+                        return true
+                    } else{
+                        binding.ctxFechaNacimiento.error = "Debes tener al menos 13 años"
+                        return false
+                    }
+
+                } else{
+                    binding.ctxFechaNacimiento.error = "Fecha fuera de rango"
+                    Toast.makeText(context,"El rango de fechas valido es del 01/01/1900 al 31/12/2100",Toast.LENGTH_LONG).show()
+                    return false
+                }
+
+            } else{
+                binding.ctxFechaNacimiento.error = "Formato de fecha no valido"
+                Toast.makeText(context,"La fecha debe tener 10 caracteres con el siguiente formato: dd/mm/aaaa ",Toast.LENGTH_LONG).show()
+                return false
+            }
+        } else{
+            binding.ctxFechaNacimiento.error = "Ingrese su fecha de nacimiento"
             return false
         }
-        return true
     }
 
     override fun salvarDatos() {
@@ -109,18 +185,12 @@ class FragmenteEdadGenero : Fragment(), AdminDataFragments {
         val bool_fecha: Boolean
         val bool_genero: Boolean
 
-        if (binding.ctxFechaNacimiento.editText?.text.toString().isNotEmpty()) {
+
+        if (validarFecha(binding.ctxFechaNacimiento.editText?.text.toString())) {
+            bool_fecha = true
             binding.ctxFechaNacimiento.error = null
-            if (validarFecha(binding.ctxFechaNacimiento.editText?.text.toString())) {
-                bool_fecha = true
-                binding.ctxFechaNacimiento.error = null
-            } else {
-                bool_fecha = false
-                binding.ctxFechaNacimiento.error = "Fecha no válida"
-            }
         } else {
             bool_fecha = false
-            binding.ctxFechaNacimiento.error = "Ingrese su fecha de nacimiento"
         }
 
         if (binding.ctxGenero.editText?.text.toString().isNotEmpty()) {

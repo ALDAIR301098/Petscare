@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.petscare.org.databinding.FragmentNombreBinding
 import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.AdminDataFragments
@@ -33,15 +32,10 @@ class FragmentNombre : Fragment(), AdminDataFragments {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observarLiveData()
-        eventosUI()
-    }
-
-    private fun eventosUI() {
-        binding.btnSiguiente.setOnClickListener { verificarCampos() }
     }
 
     private fun observarLiveData() {
-        vmRegistro.ldata_registro.observe(viewLifecycleOwner, Observer { ldata_registro ->
+        vmRegistro.ldata_registro.observe(viewLifecycleOwner, { ldata_registro ->
             binding.ctxNombre.editText?.setText(ldata_registro.nombre)
             binding.ctxApellidos.editText?.setText(ldata_registro.apellidos)
         })

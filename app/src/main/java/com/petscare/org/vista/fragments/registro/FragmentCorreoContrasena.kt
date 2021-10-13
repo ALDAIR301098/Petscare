@@ -34,7 +34,6 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observarLiveData()
-        eventosUI()
     }
 
     private fun observarLiveData() {
@@ -42,10 +41,6 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
             binding.ctxCorreo.editText?.setText(ldata_registro.correo)
             binding.ctxContrasena.editText?.setText(ldata_registro.contrasena)
         })
-    }
-
-    private fun eventosUI() {
-        binding.btnTerminar.setOnClickListener { verificarCampos() }
     }
 
     override fun verificarCampos() {

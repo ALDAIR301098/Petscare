@@ -49,7 +49,6 @@ class FragmentPaisTelefono : Fragment(), AdminDataFragments {
     }
 
     private fun eventosUI() {
-        binding.btnSiguiente.setOnClickListener { verificarCampos() }
         binding.btnElegir.setOnClickListener { mostrarSelectorPais() }
     }
 

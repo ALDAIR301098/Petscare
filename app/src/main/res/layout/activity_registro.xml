@@ -94,4 +94,21 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:minHeight="58dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/rojo_pastel"
+        android:fontFamily="@font/google_sans_regular"
+        android:text="Siguiente"
+        android:textAllCaps="false"
+        android:textColor="@color/blanco"
+        android:textSize="16sp"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_siguiente"
+        app:iconTint="@color/blanco" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

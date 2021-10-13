@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:animateLayoutChanges="true"
     tools:context=".vista.fragments.registro.FragmentCorreoContrasena">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             app:endIconMode="none"
             app:helperText="No obligatorio"
@@ -36,7 +38,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ctx_contrasena"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -55,16 +57,5 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_terminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:text="Siguiente"
-            app:icon="@drawable/ic_siguiente"
-            app:iconTint="@color/blanco"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_contrasena" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

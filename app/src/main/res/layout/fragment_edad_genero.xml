@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:focusableInTouchMode="true"
     tools:context=".vista.fragments.registro.FragmenteEdadGenero">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             app:counterEnabled="true"
             app:counterMaxLength="10"
             app:helperText="dd/mm/aaaa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_genero"
+            app:layout_constraintTop_toTopOf="parent"
             app:startIconDrawable="@drawable/ic_calendario">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +54,7 @@
             app:hintTextColor="@color/secundario"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctx_fecha_nacimiento"
             app:startIconDrawable="@drawable/ic_genero">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -62,18 +64,6 @@
                 android:hint="Genero"
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_siguiente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:text="Siguiente"
-            app:icon="@drawable/ic_siguiente"
-            app:iconTint="@color/blanco"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ctx_fecha_nacimiento" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -12,6 +12,7 @@
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_camera.xml" value="0.38425925925925924" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_cancelar.xml" value="0.36574074074074076" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_candado.xml" value="0.35185185185185186" />
+        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_carpeta.xml" value="0.39692307692307693" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_cerrar.xml" value="0.403125" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_circulo.xml" value="0.403125" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/drawable/ic_contorno.xml" value="0.375" />
@@ -42,6 +43,7 @@
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/act_verification.xml" value="0.33" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/act_welcome.xml" value="0.5" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/activity_progreso.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/activity_registro.xml" value="0.5" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/change_button_style.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/frag_authentication.xml" value="0.33" />
@@ -49,14 +51,14 @@
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_authentication.xml" value="0.5" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_contrasena.xml" value="0.5" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_correo_contrasena.xml" value="0.5" />
-        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_edad_genero.xml" value="0.5" />
+        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_edad_genero.xml" value="0.33" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_first.xml" value="0.21875" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_four.xml" value="0.21875" />
-        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_nombre.xml" value="0.5" />
+        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_nombre.xml" value="0.33" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_pais_telefono.xml" value="0.33" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_terminar.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_third.xml" value="0.21875" />
-        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_verificar.xml" value="0.5" />
+        <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_verificar.xml" value="0.33" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/fragment_verification.xml" value="0.5" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/frg_authentication.xml" value="0.58046875" />
         <entry key="..\:/Users/Aldair/AndroidStudioProjects/Petscare2/app/src/main/res/layout/items_selector.xml" value="0.38697916666666665" />

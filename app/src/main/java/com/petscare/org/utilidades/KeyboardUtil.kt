@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import java.util.HashMap
 
-class KeyboardUtils private constructor(act: Activity, listener: SoftKeyboardToggleListener) :
+class KeyboardUtil private constructor(act: Activity, listener: SoftKeyboardToggleListener) :
     OnGlobalLayoutListener {
     private var mCallback: SoftKeyboardToggleListener?
     private val mRootView: View
@@ -40,10 +40,10 @@ class KeyboardUtils private constructor(act: Activity, listener: SoftKeyboardTog
 
     companion object {
         private const val MAGIC_NUMBER = 200
-        private val sListenerMap = HashMap<SoftKeyboardToggleListener, KeyboardUtils>()
+        private val sListenerMap = HashMap<SoftKeyboardToggleListener, KeyboardUtil>()
         fun addKeyboardToggleListener(act: Activity, listener: SoftKeyboardToggleListener) {
             removeKeyboardToggleListener(listener)
-            sListenerMap[listener] = KeyboardUtils(act, listener)
+            sListenerMap[listener] = KeyboardUtil(act, listener)
         }
 
         private fun removeKeyboardToggleListener(listener: SoftKeyboardToggleListener) {
@@ -60,7 +60,7 @@ class KeyboardUtils private constructor(act: Activity, listener: SoftKeyboardTog
             sListenerMap.clear()
         }
 
-        fun forceCloseKeyboard(activeView: View) {
+        fun cerrarTeclado(activeView: View) {
             val inputMethodManager = activeView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(activeView.windowToken, 0)
         }

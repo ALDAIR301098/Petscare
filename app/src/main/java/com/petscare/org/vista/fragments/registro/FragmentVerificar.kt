@@ -51,7 +51,6 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
         mostrarNumero()
         getCodeListener()
         enviarCodigo()
-        eventosUI()
     }
 
     private fun mostrarNumero() {
@@ -59,6 +58,7 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
     }
 
     private fun enviarCodigo() {
+        Toast.makeText(requireContext(),"Solicitando código de verificación",Toast.LENGTH_SHORT).show()
         auth.useAppLanguage()
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(vmRegistro.getLada().plus(vmRegistro.getTelefono()))
@@ -105,6 +105,7 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     registrarDatosUsuario(task.result.user!!.uid)
+                    cambiarFragment()
                 } else {
                     verificarErrores(task.exception)
                 }
@@ -126,7 +127,6 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
         )
 
         db.collection("Usuarios").document(UID).set(user).addOnSuccessListener { listener ->
-            Toast.makeText(requireContext(),"Registro de datos exitoso",Toast.LENGTH_SHORT).show()
             cambiarFragment()
         }
             .addOnFailureListener {
@@ -136,10 +136,6 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
 
     private fun cambiarFragment() {
         change_fragment_listener.mostrarFragment(5)
-    }
-
-    private fun eventosUI() {
-        binding.btnTerminar.setOnClickListener { verificarCampos() }
     }
 
     override fun salvarDatos() {
