@@ -1,6 +1,7 @@
-package com.petscare.org.vista.fragments.authentication
+package com.petscare.org.vista.fragments.auth
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList.*
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,18 +12,26 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.petscare.org.vista.Interfaces.onNextFragmentListener
 import com.petscare.org.R
 import com.petscare.org.databinding.FragmentVerificationBinding
+import com.petscare.org.viewmodel.ViewModelAuth
+import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener
+import com.petscare.org.vista.activitys.ActivityMenu
+import com.petscare.org.vista.activitys.ActivityRegistro
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
-class FragmentVerification : Fragment() {
+class FragmentVerification : Fragment(), OnFragmentNavigationListener {
 
-    //Objetos para la vinculacióin de vistas (View Binding)
+    private val vmAuth: ViewModelAuth by activityViewModels()
     private var _binding: FragmentVerificationBinding? = null
     private val binding get() = _binding!!
 
@@ -32,10 +41,9 @@ class FragmentVerification : Fragment() {
     private lateinit var id_verificacion_guardado: String
     private lateinit var token_reenvio: PhoneAuthProvider.ForceResendingToken
 
-    //Propiedades y objetos necesarios para el funcionameinto del fragment
-    private lateinit var telefono: String
+    //Contador de tiempo
     private lateinit var contador: CountDownTimer
-    private lateinit var change_frag_listener : onNextFragmentListener
+    private var tiempo_contador: Long = 15000
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVerificationBinding.inflate(inflater, container, false)
@@ -45,7 +53,6 @@ class FragmentVerification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        telefono = arguments?.getString("telefono")!!
         auth = FirebaseAuth.getInstance()
 
         mostrarNumero()
@@ -60,7 +67,7 @@ class FragmentVerification : Fragment() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 binding.ctxCodigo.error = null
                 binding.ctxCodigo.editText?.setText(credential.smsCode)
-                Toast.makeText(activity, "Verificacion exitosa", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Verificacion exitosa", Toast.LENGTH_SHORT).show()
                 signInWithPhoneAuthCredential(credential)
             }
 
@@ -70,8 +77,7 @@ class FragmentVerification : Fragment() {
 
             override fun onCodeSent(verification_id: String, token: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(verification_id, token)
-
-                Toast.makeText(activity, "Se envió el código de verificación", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Se envió el código de verificación", Toast.LENGTH_SHORT).show()
                 id_verificacion_guardado = verification_id
                 token_reenvio = token
             }
@@ -79,10 +85,23 @@ class FragmentVerification : Fragment() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        val db = Firebase.firestore
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    cambiarActivity()
+                    val info = db.collection("Usuarios").document(task.result.user!!.uid)
+                    info.get().addOnCompleteListener(requireActivity()) { task_data ->
+                        if (task_data.isSuccessful){
+                            val document_info = task_data.result
+                            if (document_info.exists()){
+                                cambiarActivity(0,null)
+                            } else{
+                                cambiarActivity(1, task.result.user!!.uid)
+                            }
+                        } else{
+                            Toast.makeText(requireContext(),"Hubo un error",Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 } else {
                     verificarErrores(task.exception)
                 }
@@ -90,27 +109,40 @@ class FragmentVerification : Fragment() {
     }
 
     private fun verificarErrores(exception: Exception?) {
-        when(exception){
-            is FirebaseAuthUserCollisionException -> Toast.makeText(requireContext(),"El número de telefono ingresado ya esta asociado a otra cuenta de Petscare",Toast.LENGTH_SHORT).show()
-            is FirebaseNetworkException -> Toast.makeText(requireContext(),"No hay conexión a internet", Toast.LENGTH_SHORT).show()
+        when (exception) {
+            is FirebaseAuthUserCollisionException -> Toast.makeText(requireContext(), "El número de telefono ingresado ya esta asociado a otra cuenta de Petscare", Toast.LENGTH_SHORT).show()
+            is FirebaseNetworkException -> Toast.makeText(requireContext(), "No hay conexión a internet", Toast.LENGTH_SHORT).show()
             is FirebaseAuthInvalidCredentialsException -> binding.ctxCodigo.error = "Código incorrecto"
-            else -> Toast.makeText(requireContext(),"Hubo un error: ${exception?.message}",Toast.LENGTH_SHORT).show()
+            else -> Toast.makeText(requireContext(), "Hubo un error: ${exception?.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun cambiarActivity() {
-        contador.cancel()
-        val data = bundleOf("index" to 1)
-        change_frag_listener.cambiarFragment(data)
+    private fun cambiarActivity(opc : Int, UID: String?) {
+        val intent = Intent()
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        if (opc == 0){
+            intent.setClass(requireContext(),ActivityMenu::class.java)
+        } else {
+            val bundle = Bundle()
+            bundle.putString("lada", vmAuth.getLada())
+            bundle.putString("telefono", vmAuth.getTelefono())
+            bundle.putString("UID", UID)
+            intent.putExtras(bundle)
+            intent.setClass(requireContext(),ActivityRegistro::class.java)
+        }
+        startActivity(intent)
     }
 
     private fun mostrarNumero() {
-        binding.txtNumero.text = "Ingresa el código enviado al +52 $telefono"
+        binding.txtNumero.setText("Ingresa el código enviado al ".plus(vmAuth.getLada()).plus(" ${vmAuth.getTelefono()}"))
     }
 
     private fun enviarCodigo() {
         auth.useAppLanguage()
-        val options = PhoneAuthOptions.newBuilder(auth).setPhoneNumber("+52$telefono")
+        val options = PhoneAuthOptions.newBuilder(auth).setPhoneNumber("${vmAuth.getLada()}".plus(vmAuth.getTelefono()))
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(requireActivity())
             .setCallbacks(mcallback)
@@ -119,13 +151,17 @@ class FragmentVerification : Fragment() {
     }
 
     private fun iniciarContadorTiempo() {
-        contador = object : CountDownTimer(15000, 1000) {
+        tiempo_contador = vmAuth.getTiempoContador()
+        contador = object : CountDownTimer(tiempo_contador, 1000) {
             override fun onTick(p0: Long) {
-                binding.txtTiempo.text = "Solicitar nuevo mensaje en ${p0 / 1000} segundos"
+                tiempo_contador = p0
+                binding.btnReenviar.text = "Reenviar ${p0 / 1000}s"
             }
 
             override fun onFinish() {
+                binding.btnReenviar.text = "Reenviar"
                 habilitarBtnReenviar()
+                contador.cancel()
             }
         }.start()
     }
@@ -136,37 +172,43 @@ class FragmentVerification : Fragment() {
 
     private fun verificarCampoCodigo() {
         binding.ctxCodigo.error = null
-        if (binding.ctxCodigo.editText?.text.toString().isNotEmpty()){
-            if (binding.ctxCodigo.editText?.text.toString().length == 6){
+        if (binding.ctxCodigo.editText?.text.toString().isNotEmpty()) {
+            if (binding.ctxCodigo.editText?.text.toString().length == 6) {
                 val codigo = binding.ctxCodigo.editText?.text.toString()
-                val credencial = PhoneAuthProvider.getCredential(id_verificacion_guardado,codigo)
+                val credencial = PhoneAuthProvider.getCredential(id_verificacion_guardado, codigo)
                 signInWithPhoneAuthCredential(credencial)
-            } else{
+            } else {
                 binding.ctxCodigo.error = "El código debe tener 6 digitos"
             }
-        } else{
+        } else {
             binding.ctxCodigo.error = "Ingresa el código"
         }
     }
 
     private fun habilitarBtnReenviar() {
-
         binding.btnReenviar.isEnabled = true
-        binding.btnReenviar.backgroundTintList =
-            ContextCompat.getColorStateList(requireContext(), R.color.boton_reenviar_corregir)
+        binding.btnReenviar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.cafe)
         binding.btnReenviar.setTextColor(ContextCompat.getColor(requireContext(), R.color.blanco))
-        binding.btnReenviar.compoundDrawableTintList =
-            valueOf(ContextCompat.getColor(requireContext(), R.color.blanco))
+        binding.btnReenviar.compoundDrawableTintList = valueOf(ContextCompat.getColor(requireContext(), R.color.blanco))
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        change_frag_listener = context as onNextFragmentListener
+    override fun onPause() {
+        super.onPause()
+        vmAuth.setTiempoContador(tiempo_contador)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        contador.cancel()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+    }
+
+    override fun mostrarFragment(index: Int) {
 
     }
 }

@@ -6,22 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.petscare.org.R
-import com.petscare.org.databinding.ActivityWelcomeBinding
-import com.petscare.org.modelo.ModeloItemsSelector
-import com.petscare.org.vista.adaptadores.dialogos.AdaptadorListaOpciones
-import java.util.ArrayList
-
+import com.petscare.org.databinding.ActivityBienvenidaBinding
 class ActivityBienvenida : AppCompatActivity(){
 
-    private lateinit var binding : ActivityWelcomeBinding
+    private lateinit var binding : ActivityBienvenidaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        binding = ActivityWelcomeBinding.inflate(layoutInflater)
+        binding = ActivityBienvenidaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         retardarSplashScreen()
@@ -42,35 +36,24 @@ class ActivityBienvenida : AppCompatActivity(){
     }
 
     private fun eventosUI(){
-        binding.btnIngresar.setOnClickListener {
-            val intent = Intent(this,ActivityAuthentication::class.java)
-            intent.putExtra("auth_mode","login")
-            startActivity(intent)
+
+        binding.btnGoogle.setOnClickListener {
+
         }
-        binding.btnRegistrar.setOnClickListener {
-            mostrarSelectorProovedorAutenticacion()
+
+        binding.btnFacebook.setOnClickListener {
+
         }
+
+        binding.btnTelefono.setOnClickListener {
+            startActivity(Intent(this,ActivityAuth::class.java))
+        }
+
         binding.imgLogo.setOnClickListener {
             startActivity(Intent(this,ActivityMenu::class.java))
-            finish()
         }
+
+        binding.imgPajaro.setOnClickListener { startActivity(Intent(this, ActivityRegistro::class.java)) }
     }
 
-    private fun mostrarSelectorProovedorAutenticacion() {
-        val items = ArrayList<ModeloItemsSelector>()
-        items.add(ModeloItemsSelector("Teléfono", R.drawable.ic_phone))
-        items.add(ModeloItemsSelector("Google",R.drawable.ic_google))
-        items.add(ModeloItemsSelector("Facebook",R.drawable.ic_facebook))
-
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Registrarme mediante")
-            .setAdapter(AdaptadorListaOpciones.getAdaptador(this,items)) { dialogInterface, index ->
-                when(index){
-                    0 -> {
-                        startActivity(Intent(this,ActivityRegistro::class.java))
-                    }
-                }
-            }
-            .show()
-    }
 }

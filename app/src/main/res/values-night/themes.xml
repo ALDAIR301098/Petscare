@@ -16,7 +16,7 @@
     </style>
 
     <style name="THEME_TOOLBAR_ACTIVITY" parent="THEME_GLOBAL_APP">
-        <item name="android:statusBarColor" tools:targetApi="l">#242424</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#18FFFFFF</item>
     </style>
 
     <style name="STYLE_MATERIAL_TEXT_INPUT_lAYOUT" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

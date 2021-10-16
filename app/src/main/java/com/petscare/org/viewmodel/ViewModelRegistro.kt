@@ -11,6 +11,10 @@ class ViewModelRegistro : ViewModel() {
         ldata_registro.value = ModeloDatosRegistro()
     }
 
+    fun setUID(UID: String){
+        ldata_registro.value?.UID = UID
+    }
+
     fun setIndex(index: Int) {
         ldata_registro.value?.frag_index = index
     }
@@ -31,10 +35,6 @@ class ViewModelRegistro : ViewModel() {
         ldata_registro.value?.genero = genero
     }
 
-    fun setPais(pais : String){
-        ldata_registro.value?.pais = pais
-    }
-
     fun setLada(lada : String){
         ldata_registro.value?.lada = lada
     }
@@ -49,6 +49,10 @@ class ViewModelRegistro : ViewModel() {
 
     fun setContrasena(contrasena: String) {
         ldata_registro.value?.contrasena = contrasena
+    }
+
+    fun getUID(): String?{
+        return ldata_registro.value?.UID
     }
 
     fun getIndex(): Int?{
@@ -69,10 +73,6 @@ class ViewModelRegistro : ViewModel() {
 
     fun getGenero(): String? {
         return ldata_registro.value?.genero
-    }
-
-    fun getPais(): String? {
-        return ldata_registro.value?.pais
     }
 
     fun getLada(): String? {

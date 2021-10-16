@@ -8,16 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.petscare.org.modelo.ModeloItemsSelector;
+import com.petscare.org.modelo.ModeloItemsDialogSelector;
 
 import java.util.ArrayList;
 public abstract class AdaptadorListaOpciones {
 
-        public static ListAdapter getAdaptador(final Activity actividad, final ArrayList<ModeloItemsSelector> items) {
+        public static ListAdapter getAdaptador(final Activity actividad, final ArrayList<ModeloItemsDialogSelector> items) {
 
             //Adaptador para los items del dialogo
 
-            return new ArrayAdapter<ModeloItemsSelector>(actividad, android.R.layout.select_dialog_item, android.R.id.text1, items) {
+            return new ArrayAdapter<ModeloItemsDialogSelector>(actividad, android.R.layout.select_dialog_item, android.R.id.text1, items) {
                 public View getView(int position, View convertView, ViewGroup parent) {
 
                     //Usar la superclase para personalizar el textview

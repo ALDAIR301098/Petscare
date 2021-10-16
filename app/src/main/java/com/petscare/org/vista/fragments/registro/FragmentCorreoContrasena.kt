@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.petscare.org.databinding.FragmentCorreoContrasenaBinding
 import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.AdminDataFragments
@@ -76,10 +79,32 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
 
         if (bool_correo && bool_contrasena){
             salvarDatos()
-            change_fragment_listener.mostrarFragment(3)
+            registrarDatosUsuario()
+            //change_fragment_listener.mostrarFragment(3)
         } else{
             salvarDatos()
         }
+    }
+
+    private fun registrarDatosUsuario() {
+        val db = Firebase.firestore
+        val user_info = hashMapOf(
+            "Nombre" to vmRegistro.getNombre(),
+            "Apellidos" to vmRegistro.getApellidos(),
+            "Fecha de nacimiento" to vmRegistro.getFechaNacimiento(),
+            "Genero" to vmRegistro.getGenero(),
+            "Correo" to vmRegistro.getCorreo(),
+            "Contraseña" to vmRegistro.getContrasena(),
+            "Lada" to vmRegistro.getLada(),
+            "Telefono" to vmRegistro.getTelefono()
+        )
+
+        db.collection("Usuarios").document(vmRegistro.getUID()!!).set(user_info).addOnSuccessListener { listener ->
+            change_fragment_listener.mostrarFragment(3)
+        }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(),"Registro de datos fallido", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun verificarCorreoValido(correo : String): Boolean {

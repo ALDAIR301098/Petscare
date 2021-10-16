@@ -36,12 +36,16 @@
         android:supportsRtl="true"
         android:theme="@style/THEME_SPLASH_SCREEN">
         <activity
+            android:name=".vista.activitys.ActivityPrueba"
+            android:exported="false" />
+        <activity
             android:name=".vista.activitys.ActivityRegistro"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name=".vista.activitys.ActivityAuthentication"
-            android:exported="true" />
+            android:name=".vista.activitys.ActivityAuth"
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".vista.activitys.ActivityMenu"
             android:exported="true" />

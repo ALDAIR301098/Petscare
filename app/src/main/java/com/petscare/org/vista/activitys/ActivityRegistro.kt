@@ -2,10 +2,12 @@ package com.petscare.org.vista.activitys
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.net.Uri
+import android.net.*
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -22,7 +24,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.petscare.org.R
 import com.petscare.org.databinding.ActivityRegistroBinding
-import com.petscare.org.modelo.ModeloItemsSelector
+import com.petscare.org.modelo.ModeloItemsDialogSelector
 import com.petscare.org.utilidades.CropImageUtil
 import com.petscare.org.utilidades.FileUtil
 import com.petscare.org.utilidades.KeyboardUtil
@@ -37,16 +39,16 @@ import kotlin.collections.ArrayList
 
 class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
 
-    private lateinit var binding: ActivityRegistroBinding
     private val vmRegistro: ViewModelRegistro by viewModels()
+    private lateinit var binding: ActivityRegistroBinding
+
+    private lateinit var network_callback: ConnectivityManager.NetworkCallback
 
     private var index: Int = 0
     private lateinit var transaction : FragmentTransaction
 
     private lateinit var frag_nombre: FragmentNombre
     private lateinit var frag_edad_genero: FragmenteEdadGenero
-    private lateinit var frag_pais_telefono: FragmentPaisTelefono
-    private lateinit var frag_verificacion: FragmentVerificar
     private lateinit var frag_correo_Correo_contrasena: FragmentCorreoContrasena
     private lateinit var frag_terminar: FragmentTerminar
 
@@ -65,17 +67,16 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
 
         crearFragments()
         mostrarFragment(index)
+        salvarDatos()
+        observarConexionInternet()
         observarTeclado()
         eventosUI()
-
     }
 
     private fun crearFragments() {
         this.index = vmRegistro.getIndex()!!
         frag_nombre = FragmentNombre()
         frag_edad_genero = FragmenteEdadGenero()
-        frag_pais_telefono = FragmentPaisTelefono()
-        frag_verificacion = FragmentVerificar()
         frag_correo_Correo_contrasena = FragmentCorreoContrasena()
         frag_terminar = FragmentTerminar()
     }
@@ -93,19 +94,48 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
             2 -> transaction.replace(R.id.contenedor_frags_registro, frag_correo_Correo_contrasena)
                 .commit()
             3 -> {
-                transaction.replace(R.id.contenedor_frags_registro, frag_pais_telefono).commit()
-                binding.txtInfo.text = "Información de la cuenta"
-            }
-            4 -> {
-                transaction.replace(R.id.contenedor_frags_registro, frag_verificacion).commit()
-                binding.txtInfo.text = "Verificación de la cuenta"
-                binding.btnNext.text = "Verificar"
-            }
-            5 -> {
                 transaction.replace(R.id.contenedor_frags_registro, frag_terminar).commit()
                 binding.txtInfo.visibility = View.GONE
                 binding.btnNext.text = "Terminar"
             }
+        }
+    }
+
+    private fun salvarDatos() {
+        val bundle = intent.extras
+        vmRegistro.setLada(bundle?.getString("lada")!!)
+        vmRegistro.setTelefono(bundle.getString("telefono")!!)
+        vmRegistro.setUID(bundle.getString("UID")!!)
+    }
+
+    private fun observarConexionInternet() {
+        network_callback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+                runOnUiThread(Runnable{
+                    binding.layoutNoConection.visibility = View.GONE
+                    binding.layoutRegistro.visibility = View.VISIBLE
+                })
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+                runOnUiThread(Runnable{
+                    KeyboardUtil.cerrarTeclado(binding.root)
+                    binding.layoutNoConection.visibility = View.VISIBLE
+                    binding.layoutRegistro.visibility = View.GONE
+                    binding.animNoInternet.playAnimation()
+                })
+            }
+        }
+
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cm.registerDefaultNetworkCallback(network_callback)
+        } else {
+            val networkRequest = NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build()
+            cm.registerNetworkCallback(networkRequest, network_callback)
         }
     }
 
@@ -133,9 +163,7 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
                 0 -> frag_nombre.verificarCampos()
                 1 -> frag_edad_genero.verificarCampos()
                 2 -> frag_correo_Correo_contrasena.verificarCampos()
-                3 -> frag_pais_telefono.verificarCampos()
-                4 -> frag_verificacion.verificarCampos()
-                5 -> {
+                3 -> {
                     startActivity(Intent(this,ActivityMenu::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -147,11 +175,11 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
     }
 
     private fun mostrarSelectorFoto() {
-        val items = ArrayList<ModeloItemsSelector>()
-        items.add(ModeloItemsSelector("Camara", R.drawable.ic_camera))
-        items.add(ModeloItemsSelector("Galeria", R.drawable.ic_galeria))
-        items.add(ModeloItemsSelector("Mis archivos",R.drawable.ic_carpeta))
-        items.add(ModeloItemsSelector("Cancelar", R.drawable.ic_cancelar))
+        val items = ArrayList<ModeloItemsDialogSelector>()
+        items.add(ModeloItemsDialogSelector("Camara", R.drawable.ic_camera))
+        items.add(ModeloItemsDialogSelector("Galeria", R.drawable.ic_galeria))
+        items.add(ModeloItemsDialogSelector("Mis archivos",R.drawable.ic_carpeta))
+        items.add(ModeloItemsDialogSelector("Cancelar", R.drawable.ic_cancelar))
 
         val dialogo = MaterialAlertDialogBuilder(this)
             .setTitle("Establecer foto de perfil")
@@ -270,28 +298,32 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
     }
 
     private val resultado_galeria = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val uri_origen = result.data!!.data
-        var archivo_foto_galeria :File? = null
-        try {
-            archivo_foto_galeria = crearArchivoFoto()
-        } catch (e : Exception){
-            Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
-        }
+        if (result.resultCode == Activity.RESULT_OK){
+            val uri_origen = result.data!!.data
+            var archivo_foto_galeria :File? = null
+            try {
+                archivo_foto_galeria = crearArchivoFoto()
+            } catch (e : Exception){
+                Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
+            }
 
-        val uri_destino = Uri.fromFile(archivo_foto_galeria)
-        resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
+            val uri_destino = Uri.fromFile(archivo_foto_galeria)
+            resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
+        }
     }
 
     private val resultado_explorador_archivos = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        val uri_origen = result.data!!.data
-        var archivo_foto_explorador : File? = null
-        try {
-            archivo_foto_explorador = crearArchivoFoto()
-        } catch (e : java.lang.Exception){
-            Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
+        if (result.resultCode == Activity.RESULT_OK){
+            val uri_origen = result.data!!.data
+            var archivo_foto_explorador : File? = null
+            try {
+                archivo_foto_explorador = crearArchivoFoto()
+            } catch (e : java.lang.Exception){
+                Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
+            }
+            val uri_destino = Uri.fromFile(archivo_foto_explorador)
+            resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
         }
-        val uri_destino = Uri.fromFile(archivo_foto_explorador)
-        resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
     }
 
     private val resultado_recorte = registerForActivityResult(CropImageUtil()) {
@@ -329,19 +361,24 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
         }
     }
 
+    override fun onBackPressed() {
+        when (--index) {
+            -1 -> {
+                Toast.makeText(this, "No puedes cancelar el proceso de registro de datos de la cuenta",Toast.LENGTH_SHORT).show()
+                index++
+            }
+            0,1 -> mostrarFragment(index)
+            else -> index++
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         vmRegistro.setIndex(this.index)
     }
 
-    override fun onBackPressed() {
-        when (--this.index) {
-            -1 -> finish()
-            0,1,2 -> mostrarFragment(this.index)
-            3 -> {
-                Toast.makeText(this,"No puedes cancelar la verificación de la cuenta",Toast.LENGTH_SHORT).show()
-                this.index++
-            } else -> index++
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).unregisterNetworkCallback(network_callback)
     }
 }

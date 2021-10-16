@@ -43,7 +43,6 @@ class FragmentPaisTelefono : Fragment(), AdminDataFragments {
 
     private fun observarLiveData() {
         vm_registro.ldata_registro.observe(viewLifecycleOwner, { ldata_registro ->
-            binding.ctxPais.editText?.setText(ldata_registro.pais)
             binding.ctxTelefono.editText?.setText(ldata_registro.telefono)
         })
     }
@@ -90,7 +89,6 @@ class FragmentPaisTelefono : Fragment(), AdminDataFragments {
     }
 
     override fun salvarDatos() {
-        vm_registro.setPais(binding.ctxPais.editText?.text.toString())
         vm_registro.setLada(binding.ctxTelefono.prefixText.toString())
         vm_registro.setTelefono(binding.ctxTelefono.editText?.text.toString())
     }

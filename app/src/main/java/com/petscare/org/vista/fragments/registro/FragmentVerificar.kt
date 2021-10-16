@@ -84,7 +84,7 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
 
             override fun onCodeSent(verification_id: String, token: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(verification_id, token)
-                Toast.makeText(activity, "Se envió el código de verificación", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Se envió el código de verificación", Toast.LENGTH_SHORT).show()
                 id_verificacion_guardado = verification_id
                 token_reenvio = token
             }
@@ -121,7 +121,6 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
             "Genero" to vmRegistro.getGenero(),
             "Correo" to vmRegistro.getCorreo(),
             "Contraseña" to vmRegistro.getContrasena(),
-            "Pais" to vmRegistro.getPais(),
             "Lada" to vmRegistro.getLada(),
             "Telefono" to vmRegistro.getTelefono()
         )

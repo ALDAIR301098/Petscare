@@ -72,7 +72,7 @@
     <style name="APARIENCIA_MATERIAL_TOOLBAR_TITLE_TEXT" parent="@style/TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/google_sans_regular</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="STYLE_MATERIAL_CALENDAR_PICKER" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
@@ -115,7 +115,7 @@
 
     <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/parrafos</item>
-        <item name="fontFamily">@font/google_sans_bold</item>
+        <item name="fontFamily">@font/google_sans_regular</item>
     </style>
 
 </resources>

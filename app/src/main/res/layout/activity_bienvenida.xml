@@ -10,7 +10,7 @@
         android:id="@+id/img_logo"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,36 +40,60 @@
 
     <ImageView
         android:id="@+id/img_pajaro"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ingresar"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_google"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@drawable/ic_tucan" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_registrar"
+    <Button
+        android:id="@+id/btn_google"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="16dp"
-        android:text="Crear cuenta"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/fondo_btn_google_fb"
+        android:text="Continúa con Google"
+        android:textColor="@color/text_btn_google_fb"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_google"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toTopOf="@+id/btn_facebook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/STYLE_MATERIAL_BUTTON_OUTLINED"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_ingresar"
+        android:id="@+id/btn_facebook"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="8dp"
-        android:text="Iniciar sesión"
-        app:layout_constraintBottom_toTopOf="@+id/btn_registrar"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/fondo_btn_google_fb"
+        android:text="Continúa con Facebook"
+        android:textColor="@color/text_btn_google_fb"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_facebook"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toTopOf="@+id/btn_telefono"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_telefono"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="Continúa con tu celular"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/ic_phone"
+        app:iconTint="@color/blanco"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
