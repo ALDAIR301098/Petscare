@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.petscare.org.databinding.FragmentVerificarBinding
@@ -46,7 +47,7 @@ class FragmentVerificar : Fragment(), AdminDataFragments {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
 
         mostrarNumero()
         getCodeListener()

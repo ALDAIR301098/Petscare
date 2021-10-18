@@ -1,11 +1,7 @@
 package com.petscare.org.vista.activitys
 
 import android.content.Context
-import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
+import android.net.*
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,17 +18,17 @@ import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener
 import com.petscare.org.vista.fragments.auth.FragmentTelefono
 import com.petscare.org.vista.fragments.auth.FragmentVerification
 
-class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener{
+class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener {
 
-    private val vmAuth : ViewModelAuth by viewModels()
-    private lateinit var binding : ActivityAuthBinding
+    private val vmAuth: ViewModelAuth by viewModels()
+    private lateinit var binding: ActivityAuthBinding
 
     private lateinit var network_callback: ConnectivityManager.NetworkCallback
 
-    private var index : Int = 0
+    private var index: Int = 0
     private lateinit var transaction: FragmentTransaction
-    private lateinit var frag_telefono : Fragment
-    private lateinit var frag_verification : Fragment
+    private lateinit var frag_telefono: FragmentTelefono
+    private lateinit var frag_verification: FragmentVerification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.THEME_TOOLBAR_ACTIVITY)
@@ -45,6 +41,15 @@ class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener{
         mostrarFragment(index)
         observarConexionInternet()
 
+        if (verificarConexionInternet()){
+            binding.layoutNoConection.visibility = View.GONE
+            binding.layoutNormal.visibility = View.VISIBLE
+        } else{
+            binding.layoutNoConection.visibility = View.VISIBLE
+            binding.layoutNormal.visibility = View.GONE
+            binding.animNoInternet.playAnimation()
+        }
+
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
@@ -56,27 +61,39 @@ class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener{
 
     override fun mostrarFragment(index: Int) {
         transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
         this.index = index
-        when(this.index){
-            0 -> transaction.replace(R.id.contenedor_frags_auth,frag_telefono).commit()
-            1 -> transaction.replace(R.id.contenedor_frags_auth,frag_verification).commit()
+        when (this.index) {
+            0 -> transaction.replace(R.id.contenedor_frags_auth, frag_telefono).commit()
+            1 -> transaction.replace(R.id.contenedor_frags_auth, frag_verification).commit()
         }
+    }
+
+    private fun verificarConexionInternet():Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork
+        val tipos_conexiones = cm.getNetworkCapabilities(network)
+        return tipos_conexiones != null && (tipos_conexiones.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                || tipos_conexiones.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
     }
 
     private fun observarConexionInternet() {
         network_callback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                runOnUiThread(Runnable{
+                runOnUiThread(Runnable {
                     binding.layoutNoConection.visibility = View.GONE
                     binding.layoutNormal.visibility = View.VISIBLE
                 })
+
+                if (index == 1){
+                    frag_verification.verificarCodigoEnviado()
+                }
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                runOnUiThread(Runnable{
+                runOnUiThread(Runnable {
                     KeyboardUtil.cerrarTeclado(binding.root)
                     binding.layoutNoConection.visibility = View.VISIBLE
                     binding.layoutNormal.visibility = View.GONE
@@ -96,10 +113,14 @@ class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener{
     }
 
     override fun onBackPressed() {
-        if (index == 0){
+        if (index == 0) {
             finish()
-        } else if (index == 1){
-            Toast.makeText(this, "No puedes cancelar el proceso de verificación de la cuenta.",Toast.LENGTH_SHORT).show()
+        } else if (index == 1) {
+            Toast.makeText(
+                this,
+                "No puedes cancelar el proceso de verificación de la cuenta.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -110,6 +131,8 @@ class ActivityAuth : AppCompatActivity(), OnFragmentNavigationListener{
 
     override fun onDestroy() {
         super.onDestroy()
-        (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).unregisterNetworkCallback(network_callback)
+        (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).unregisterNetworkCallback(
+            network_callback
+        )
     }
 }

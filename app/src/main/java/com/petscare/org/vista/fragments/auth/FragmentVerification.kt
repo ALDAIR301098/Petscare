@@ -11,15 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.petscare.org.vista.Interfaces.onNextFragmentListener
 import com.petscare.org.R
 import com.petscare.org.databinding.FragmentVerificationBinding
 import com.petscare.org.viewmodel.ViewModelAuth
@@ -29,7 +26,7 @@ import com.petscare.org.vista.activitys.ActivityRegistro
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
-class FragmentVerification : Fragment(), OnFragmentNavigationListener {
+class FragmentVerification : Fragment(){
 
     private val vmAuth: ViewModelAuth by activityViewModels()
     private var _binding: FragmentVerificationBinding? = null
@@ -56,10 +53,18 @@ class FragmentVerification : Fragment(), OnFragmentNavigationListener {
         auth = FirebaseAuth.getInstance()
 
         mostrarNumero()
-        getCodeListener()
-        enviarCodigo()
+        verificarCodigoEnviado()
         iniciarContadorTiempo()
         eventosUI()
+    }
+
+    fun verificarCodigoEnviado() {
+        if (vmAuth.isCodigoEnviado() == false){
+            getCodeListener()
+            enviarCodigo()
+        } else{
+            id_verificacion_guardado = vmAuth.getCodigoVerificacionGuardado()!!
+        }
     }
 
     private fun getCodeListener() {
@@ -79,7 +84,9 @@ class FragmentVerification : Fragment(), OnFragmentNavigationListener {
                 super.onCodeSent(verification_id, token)
                 Toast.makeText(requireContext(), "Se envió el código de verificación", Toast.LENGTH_SHORT).show()
                 id_verificacion_guardado = verification_id
+                vmAuth.setIdVerificacionGuardado(id_verificacion_guardado)
                 token_reenvio = token
+                vmAuth.setIsCodigoEnviado(true)
             }
         }
     }
@@ -205,10 +212,6 @@ class FragmentVerification : Fragment(), OnFragmentNavigationListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
-    }
-
-    override fun mostrarFragment(index: Int) {
 
     }
 }

@@ -69,6 +69,19 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
         mostrarFragment(index)
         salvarDatos()
         observarConexionInternet()
+
+        if (verificarConexionInternet()){
+            binding.layoutNoConection.visibility = View.GONE
+            binding.layoutRegistro.visibility = View.VISIBLE
+        } else{
+            binding.layoutNoConection.visibility = View.VISIBLE
+            binding.layoutRegistro.visibility = View.GONE
+            binding.animNoInternet.playAnimation()
+        }
+
+        if (vmRegistro.getArchivoFoto()!=null){
+            mostrarFoto()
+        }
         observarTeclado()
         eventosUI()
     }
@@ -106,6 +119,14 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
         vmRegistro.setLada(bundle?.getString("lada")!!)
         vmRegistro.setTelefono(bundle.getString("telefono")!!)
         vmRegistro.setUID(bundle.getString("UID")!!)
+    }
+
+    private fun verificarConexionInternet():Boolean {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = cm.activeNetwork
+        val tipos_conexiones = cm.getNetworkCapabilities(network)
+        return tipos_conexiones != null && (tipos_conexiones.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                || tipos_conexiones.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
     }
 
     private fun observarConexionInternet() {
@@ -342,6 +363,7 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
         try {
             //Intentar crear un arvhivo con la ruta de la imagen
             archivo_foto = FileUtil.from(this, uri)
+            vmRegistro.setArchivoFoto(archivo_foto)
 
             //Crear un bitmap apartir de el archivo
             val bitmap = BitmapFactory.decodeFile(archivo_foto.absolutePath)
@@ -357,6 +379,25 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
             binding.imgFoto.background = round_bitmap
 
         } catch (e : IOException){
+            Toast.makeText(this, "Hubo un error " + e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun mostrarFoto(){
+        try {
+            //Crear un bitmap apartir de el archivo
+            val bitmap = BitmapFactory.decodeFile(vmRegistro.getArchivoFoto()?.absolutePath)
+
+            //Crear un bitmap redondo apartir del bitmap anterior y establecer el radio del redondeo del circulo
+            val round_bitmap = RoundedBitmapDrawableFactory.create(resources,bitmap)
+            round_bitmap.cornerRadius = 300f
+
+            //Quitar el icono (recurso src) de la imagen de foto de perfil
+            binding.imgFoto.setImageResource(0)
+
+            //Establecer de fondo la foto del usuario
+            binding.imgFoto.background = round_bitmap
+        } catch (e: IOException){
             Toast.makeText(this, "Hubo un error " + e.message, Toast.LENGTH_SHORT).show()
         }
     }

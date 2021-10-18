@@ -1,6 +1,7 @@
 package com.petscare.org.vista.fragments.registro
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.petscare.org.databinding.FragmentCorreoContrasenaBinding
 import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.AdminDataFragments
@@ -98,6 +100,12 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
             "Lada" to vmRegistro.getLada(),
             "Telefono" to vmRegistro.getTelefono()
         )
+
+        //Subir foto de perfil
+        val storage = Firebase.storage
+        val uri_foto_file = Uri.fromFile(vmRegistro.getArchivoFoto())
+        val fotoPerfilReferencia = storage.reference.child(vmRegistro.getUID()!!).child("Foto de Perfil").child(uri_foto_file.lastPathSegment!!)
+        val uploadTask = fotoPerfilReferencia.putFile(uri_foto_file)
 
         db.collection("Usuarios").document(vmRegistro.getUID()!!).set(user_info).addOnSuccessListener { listener ->
             change_fragment_listener.mostrarFragment(3)

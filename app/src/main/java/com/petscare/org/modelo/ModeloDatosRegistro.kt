@@ -1,5 +1,7 @@
 package com.petscare.org.modelo
 
+import java.io.File
+
 data class ModeloDatosRegistro(
     var frag_index: Int = 0,
     var UID: String = "",
@@ -10,5 +12,6 @@ data class ModeloDatosRegistro(
     var lada: String = "",
     var telefono: String = "",
     var correo: String = "",
-    var contrasena: String = ""
+    var contrasena: String = "",
+    var archivo_foto: File? = null
 )

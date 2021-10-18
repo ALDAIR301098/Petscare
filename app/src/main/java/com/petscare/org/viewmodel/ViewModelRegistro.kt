@@ -3,6 +3,7 @@ package com.petscare.org.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.petscare.org.modelo.ModeloDatosRegistro
+import java.io.File
 
 class ViewModelRegistro : ViewModel() {
     val ldata_registro = MutableLiveData<ModeloDatosRegistro>()
@@ -51,6 +52,10 @@ class ViewModelRegistro : ViewModel() {
         ldata_registro.value?.contrasena = contrasena
     }
 
+    fun setArchivoFoto(archivo: File?){
+        ldata_registro.value?.archivo_foto = archivo
+    }
+
     fun getUID(): String?{
         return ldata_registro.value?.UID
     }
@@ -89,6 +94,10 @@ class ViewModelRegistro : ViewModel() {
 
     fun getContrasena(): String? {
         return ldata_registro.value?.contrasena
+    }
+
+    fun getArchivoFoto(): File?{
+        return ldata_registro.value?.archivo_foto
     }
 
 }
