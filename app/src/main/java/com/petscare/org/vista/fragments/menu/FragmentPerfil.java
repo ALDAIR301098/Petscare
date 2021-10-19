@@ -21,7 +21,7 @@ public class FragmentPerfil extends Fragment {
     private FragmentPerfilBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPerfilBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
