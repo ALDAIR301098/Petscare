@@ -13,10 +13,8 @@ import com.petscare.org.R
 import com.petscare.org.databinding.FragmentTelefonoBinding
 import com.petscare.org.modelo.ModeloPais
 import com.petscare.org.viewmodel.ViewModelAuth
-import com.petscare.org.viewmodel.ViewModelRegistro
 import com.petscare.org.vista.Interfaces.AdminDataFragments
 import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener
-import com.petscare.org.vista.Interfaces.onNextFragmentListener
 import com.petscare.org.vista.adaptadores.dialogos.AdaptadorSelectorPaises
 
 class FragmentTelefono : Fragment(), AdminDataFragments{

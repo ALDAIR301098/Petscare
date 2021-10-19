@@ -17,30 +17,32 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.petscare.org.databinding.ActivityBienvenidaBinding
-class ActivityBienvenida : AppCompatActivity(){
+import com.petscare.org.databinding.ActivityInicioBinding
 
-    private lateinit var binding : ActivityBienvenidaBinding
+class ActivityInicio : AppCompatActivity(){
+
+    private lateinit var binding : ActivityInicioBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onStart() {
         super.onStart()
-        //Verificar si hay algun usuario con sesión activa
-        //Si lo hay, mandarlo directamente al activity menu
 
-        /*val usuario = auth.currentUser
+        //Verificar si hay algun usuario con sesión activa.
+        // Si lo hay, mandarlo directamente al activity menu.
+
+        val usuario = auth.currentUser
         if (usuario!=null){
             startActivity(Intent(this,ActivityMenu::class.java))
             finish()
-        }*/
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        binding = ActivityBienvenidaBinding.inflate(layoutInflater)
+        binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
 

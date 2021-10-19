@@ -24,12 +24,12 @@ class ViewModelAuth : ViewModel() {
         ldata_auth.value?.telefono = telefono
     }
 
-    fun setTiempoContador(tiempo: Long){
-        ldata_auth.value?.tiempo_contador = tiempo
+    fun setCodigo(codigo: String){
+        ldata_auth.value?.codigo = codigo
     }
 
-    fun setIsCodigoEnviado(value: Boolean){
-        ldata_auth.value?.is_codigo_enviado = value
+    fun setTiempoContador(tiempo: Long){
+        ldata_auth.value?.tiempo_contador = tiempo
     }
 
     fun setIdVerificacionGuardado(id:String?){
@@ -48,12 +48,12 @@ class ViewModelAuth : ViewModel() {
         return ldata_auth.value?.telefono
     }
 
-    fun getTiempoContador(): Long{
-        return ldata_auth.value!!.tiempo_contador
+    fun getCodigo(): String?{
+        return ldata_auth.value?.codigo
     }
 
-    fun isCodigoEnviado(): Boolean?{
-        return ldata_auth.value?.is_codigo_enviado
+    fun getTiempoContador(): Long{
+        return ldata_auth.value!!.tiempo_contador
     }
 
     fun getCodigoVerificacionGuardado(): String?{

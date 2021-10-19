@@ -118,4 +118,25 @@
         <item name="fontFamily">@font/google_sans_regular</item>
     </style>
 
+    <style name="CustomDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="shapeAppearanceMediumComponent">@style/CustomCornersDialog</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/CustomTitleDialog</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/CustomTextDialog</item>
+    </style>
+
+    <style name="CustomTextDialog" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="CustomCornersDialog" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+
+    <style name="CustomTitleDialog" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/parrafos</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

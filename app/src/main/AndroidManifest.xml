@@ -50,7 +50,7 @@
             android:name=".vista.activitys.ActivityMenu"
             android:exported="true" />
         <activity
-            android:name=".vista.activitys.ActivityBienvenida"
+            android:name=".vista.activitys.ActivityInicio"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

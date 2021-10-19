@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/firstFragment"
+        android:id="@+id/frag_feed"
         android:icon="@drawable/ic_feed"
         android:title="Feed"/>
     <item
-        android:id="@+id/secondFragment"
+        android:id="@+id/frag_mascotas"
         android:icon="@drawable/ic_mascotas"
         android:title="Mascotas"/>
 
     <item
-        android:id="@+id/thirdFragment"
+        android:id="@+id/frag_servicios"
         android:icon="@drawable/ic_servicios"
         android:title="Servicios"/>
 
     <item
-        android:id="@+id/fourFragment"
+        android:id="@+id/frag_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="Perfil"/>
 </menu>
