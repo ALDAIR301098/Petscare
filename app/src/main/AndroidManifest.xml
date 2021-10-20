@@ -36,7 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/THEME_SPLASH_SCREEN">
         <activity
-            android:name=".vista.activitys.ActivityPrueba"
+            android:name=".vista.activitys.ActivityAgregarMascota"
             android:exported="false" />
         <activity
             android:name=".vista.activitys.ActivityRegistro"
@@ -45,10 +45,11 @@
         <activity
             android:name=".vista.activitys.ActivityAuth"
             android:exported="true"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".vista.activitys.ActivityMenu"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".vista.activitys.ActivityInicio"
             android:exported="true">

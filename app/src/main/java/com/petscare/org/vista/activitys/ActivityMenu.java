@@ -25,7 +25,7 @@ public class ActivityMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.THEME_GLOBAL_APP);
+        setTheme(R.style.THEME_TOOLBAR_ACTIVITY);
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
