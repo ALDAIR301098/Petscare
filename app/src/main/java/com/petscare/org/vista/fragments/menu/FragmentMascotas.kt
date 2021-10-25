@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.petscare.org.R
 import com.petscare.org.databinding.FragmentMascotasBinding
 import com.petscare.org.viewmodel.ViewModelMascota
 import com.petscare.org.vista.adaptadores.recyclers.AdaptadorMascotas
@@ -37,7 +38,8 @@ class FragmentMascotas : Fragment() {
     }
 
     private fun mostrarRecycler() {
-        adaptador_mascotas = AdaptadorMascotas(requireContext())
+        val view = layoutInflater.inflate(R.layout.dialogo_foto,requireActivity().findViewById(R.id.contenedor_dialogo_fm),false)
+        adaptador_mascotas = AdaptadorMascotas(requireContext(),view)
         binding.recyclerMascotas.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerMascotas.adapter = adaptador_mascotas
         observar_ldata()

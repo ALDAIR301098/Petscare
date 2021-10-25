@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -33,6 +34,7 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class ActivityAgregarMascota : AppCompatActivity() {
 
@@ -54,6 +56,7 @@ class ActivityAgregarMascota : AppCompatActivity() {
 
         observarLDataMascotas()
         eventosUI()
+
     }
 
     private fun observarLDataMascotas() {
@@ -71,10 +74,10 @@ class ActivityAgregarMascota : AppCompatActivity() {
     private fun eventosUI() {
         binding.btnGuardar.setOnClickListener {
             salvarDatos()
-            if (verificarCampos()) if (InternetUtil.verificarConexionInternet(this)){
+            if (verificarCampos()) if (InternetUtil.verificarConexionInternet(this)) {
                 guardarDatosMascota()
-            } else{
-                Toast.makeText(this,"Comprueba tu conexíon a internet",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Comprueba tu conexíon a internet", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -87,12 +90,17 @@ class ActivityAgregarMascota : AppCompatActivity() {
         val items = ArrayList<Item1>()
         items.add(Item1("Camara", R.drawable.ic_camera))
         items.add(Item1("Galeria", R.drawable.ic_galeria))
-        items.add(Item1("Mis archivos",R.drawable.ic_carpeta))
+        items.add(Item1("Mis archivos", R.drawable.ic_carpeta))
         items.add(Item1("Cancelar", R.drawable.ic_cancelar))
 
-            MaterialAlertDialogBuilder(this, R.style.CustomDialog)
+        MaterialAlertDialogBuilder(this, R.style.CustomDialog)
             .setTitle("Establecer foto de perfil")
-            .setAdapter(AdaptadorListaOpciones.getAdaptador(this, items)) { dialog_interface, index ->
+            .setAdapter(
+                AdaptadorListaOpciones.getAdaptador(
+                    this,
+                    items
+                )
+            ) { dialog_interface, index ->
                 when (index) {
                     0 -> verificarPermisosCamara()
                     1 -> abrirGaleria()
@@ -117,7 +125,11 @@ class ActivityAgregarMascota : AppCompatActivity() {
     }
 
     private fun verificarPermisosCamara() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             abrirCamara()
         } else {
             solicitarPermisosCamara()
@@ -125,39 +137,47 @@ class ActivityAgregarMascota : AppCompatActivity() {
     }
 
     private fun solicitarPermisosCamara() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),PERMISO_CAMARA)
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISO_CAMARA)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISO_CAMARA && grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == PERMISO_CAMARA && grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             abrirCamara()
-        } else{
-            if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
+        } else {
+            if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                 val dialogo = MaterialAlertDialogBuilder(this)
                     .setTitle("Permisos denegados")
-                    .setMessage("Debido a que rechazo los permisos de camara en mas de una ocasión, el sistema Android, no nos permite volver a " +
-                            "solicitarle los permisos, por lo que deberá permitirlos manualmente en la siguiente pantalla de Información de la aplicación > Permisos " +
-                            "> Cámara > Permitir")
-                    .setPositiveButton("Aceptar") {dialogo, boton ->
+                    .setMessage(
+                        "Debido a que rechazo los permisos de camara en mas de una ocasión, el sistema Android, no nos permite volver a " +
+                                "solicitarle los permisos, por lo que deberá permitirlos manualmente en la siguiente pantalla de Información de la aplicación > Permisos " +
+                                "> Cámara > Permitir"
+                    )
+                    .setPositiveButton("Aceptar") { dialogo, boton ->
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        val uri = Uri.fromParts("package",packageName,null)
+                        val uri = Uri.fromParts("package", packageName, null)
                         intent.setData(uri)
                         resultado_permiso_camara.launch(intent)
                     }
-                    .setNegativeButton("Cancelar") {dialogo, boton ->
+                    .setNegativeButton("Cancelar") { dialogo, boton ->
                         dialogo.dismiss()
                     }
                 dialogo.show()
-            }else{
+            } else {
                 val dialogo = MaterialAlertDialogBuilder(this)
                     .setTitle("Solicitud de permisos")
-                    .setMessage("Es necesario aceptar los permisos de uso de la camara, si desea usarla para tomarse una foto " +
-                            "y establecerla como foto de perfil de la cuenta, mientras no acepte el permiso, no podra utilizar esta funcionalidad")
-                    .setPositiveButton("Aceptar") {dialogo, boton ->
+                    .setMessage(
+                        "Es necesario aceptar los permisos de uso de la camara, si desea usarla para tomarse una foto " +
+                                "y establecerla como foto de perfil de la cuenta, mientras no acepte el permiso, no podra utilizar esta funcionalidad"
+                    )
+                    .setPositiveButton("Aceptar") { dialogo, boton ->
                         solicitarPermisosCamara()
                     }
-                    .setNegativeButton("Cancelar") {dialogo, boton ->
+                    .setNegativeButton("Cancelar") { dialogo, boton ->
                         dialogo.dismiss()
                     }
                 dialogo.show()
@@ -173,15 +193,24 @@ class ActivityAgregarMascota : AppCompatActivity() {
             try {
                 archivo_foto = crearArchivoFoto()
             } catch (e: Exception) {
-                Toast.makeText(this, "Hubo un error al crear el archivo de la foto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Hubo un error al crear el archivo de la foto",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             if (archivo_foto != null) {
-                val foto_uri: Uri = FileProvider.getUriForFile(this, "com.petscare.org", archivo_foto)
+                val foto_uri: Uri =
+                    FileProvider.getUriForFile(this, "com.petscare.org", archivo_foto)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, foto_uri)
                 resultado_camara.launch(intent)
             } else {
-                Toast.makeText(this, "Hubo un error al cargar el archivo de imagen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Hubo un error al cargar el archivo de imagen",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             Toast.makeText(this, "Hubo un error al abrir la camara", Toast.LENGTH_SHORT).show()
@@ -196,40 +225,56 @@ class ActivityAgregarMascota : AppCompatActivity() {
         return archivo_foto
     }
 
-    private val resultado_camara = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            resultado_recorte.launch(Pair(Uri.fromFile(archivo_foto),Uri.fromFile(archivo_foto)))
-        }
-    }
-
-    private val resultado_galeria = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            val uri_origen = result.data!!.data
-            var archivo_foto_galeria :File? = null
-            try {
-                archivo_foto_galeria = crearArchivoFoto()
-            } catch (e : Exception){
-                Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
+    private val resultado_camara =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                resultado_recorte.launch(
+                    Pair(
+                        Uri.fromFile(archivo_foto),
+                        Uri.fromFile(archivo_foto)
+                    )
+                )
             }
-
-            val uri_destino = Uri.fromFile(archivo_foto_galeria)
-            resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
         }
-    }
 
-    private val resultado_explorador_archivos = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if (result.resultCode == Activity.RESULT_OK){
-            val uri_origen = result.data!!.data
-            var archivo_foto_explorador : File? = null
-            try {
-                archivo_foto_explorador = crearArchivoFoto()
-            } catch (e : java.lang.Exception){
-                Toast.makeText(this, "Hubo un error para crear el archivo de la foto", Toast.LENGTH_SHORT).show();
+    private val resultado_galeria =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val uri_origen = result.data!!.data
+                var archivo_foto_galeria: File? = null
+                try {
+                    archivo_foto_galeria = crearArchivoFoto()
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this,
+                        "Hubo un error para crear el archivo de la foto",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+                val uri_destino = Uri.fromFile(archivo_foto_galeria)
+                resultado_recorte.launch(Pair(uri_origen, uri_destino) as Pair<Uri, Uri>?)
             }
-            val uri_destino = Uri.fromFile(archivo_foto_explorador)
-            resultado_recorte.launch(Pair(uri_origen,uri_destino) as Pair<Uri, Uri>?)
         }
-    }
+
+    private val resultado_explorador_archivos =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val uri_origen = result.data!!.data
+                var archivo_foto_explorador: File? = null
+                try {
+                    archivo_foto_explorador = crearArchivoFoto()
+                } catch (e: java.lang.Exception) {
+                    Toast.makeText(
+                        this,
+                        "Hubo un error para crear el archivo de la foto",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                }
+                val uri_destino = Uri.fromFile(archivo_foto_explorador)
+                resultado_recorte.launch(Pair(uri_origen, uri_destino) as Pair<Uri, Uri>?)
+            }
+        }
 
     private val resultado_recorte = registerForActivityResult(CropImageUtil()) {
         val uri = it ?: return@registerForActivityResult // this is the output Uri
@@ -237,21 +282,26 @@ class ActivityAgregarMascota : AppCompatActivity() {
         mostrarFoto(uri)
     }
 
-    private val resultado_permiso_camara = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
-        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            abrirCamara()
+    private val resultado_permiso_camara =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                abrirCamara()
+            }
         }
-    }
 
     private fun mostrarFoto(uri: Uri?) {
-        if (uri != null){
+        if (uri != null) {
             vmMascota.data().img_foto = uri
             try {
                 //Crear un bitmap apartir de el archivo
                 val bitmap = BitmapFactory.decodeFile(uri.path)
 
                 //Crear un bitmap redondo apartir del bitmap anterior y establecer el radio del redondeo del circulo
-                val round_bitmap = RoundedBitmapDrawableFactory.create(resources,bitmap)
+                val round_bitmap = RoundedBitmapDrawableFactory.create(resources, bitmap)
                 round_bitmap.cornerRadius = 300f
 
                 //Quitar el icono (recurso src) de la imagen de foto de perfil
@@ -260,7 +310,7 @@ class ActivityAgregarMascota : AppCompatActivity() {
                 //Establecer de fondo la foto del usuario
                 binding.imgFoto.background = round_bitmap
 
-            } catch (e : IOException){
+            } catch (e: IOException) {
                 Toast.makeText(this, "Hubo un error " + e.message, Toast.LENGTH_SHORT).show()
             }
         }
@@ -325,40 +375,76 @@ class ActivityAgregarMascota : AppCompatActivity() {
 
     private fun guardarDatosMascota() {
 
+        //Objetos para guardar los datos
         val usuario = Firebase.auth.currentUser?.uid
         val storage = Firebase.storage
         val db = Firebase.firestore
 
-        var foto : String? = null
-
-        //Subir foto
-        if (vmMascota.data().img_foto != null) {
-            val file = vmMascota.data().img_foto
-            storage.reference.child(usuario!!).child("Fotos_Mascotas/${vmMascota.data().ctx_nombre}").putFile(file!!)
-                .addOnSuccessListener {
-                    foto = it.storage.downloadUrl.toString()
-                    Toast.makeText(this,"Registro exitoso",Toast.LENGTH_SHORT).show()
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }
-                .addOnFailureListener{ exception ->
-                    Toast.makeText(this,"ERROR: ${exception.message}",Toast.LENGTH_SHORT).show()
-                }
-
-        }
-
-        val data_pet_user = hashMapOf(
+        //Estructura de datos
+        /*val data_pet_user = hashMapOf(
             "Nombre" to vmMascota.data().ctx_nombre,
             "Tipo" to vmMascota.data().ctx_tipo_mascota,
             "Raza" to vmMascota.data().ctx_raza,
             "Edad" to vmMascota.data().ctx_edad,
-            "Color" to vmMascota.data().ctx_color,
-            "Foto" to foto
+            "Color" to vmMascota.data().ctx_color
         )
 
+        //Guardar los datos
         db.collection("Usuarios").document(usuario!!).collection("Mascotas")
-            .document(vmMascota.data().ctx_nombre!!).set(data_pet_user)
+            .document(vmMascota.data().ctx_nombre!!).set(data_pet_user).addOnSuccessListener {
+                Toast.makeText(this,"Registro exitoso",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this,"Registro Fallido",Toast.LENGTH_SHORT).show()
+            }*/
 
+        //Subir foto
+        if (vmMascota.data().img_foto != null) {
+            //Subir la foto a storage
+            val file = vmMascota.data().img_foto
+            storage.reference.child(usuario!!)
+                .child("Fotos_Mascotas/${vmMascota.data().ctx_nombre}.jpg").putFile(file!!)
+                .addOnSuccessListener {
+                    it.storage.downloadUrl.addOnSuccessListener { download_uri ->
+                        val uri_foto = download_uri.toString()
+                        val datos_mascota = hashMapOf(
+                            "Nombre" to vmMascota.data().ctx_nombre,
+                            "Tipo" to vmMascota.data().ctx_tipo_mascota,
+                            "Raza" to vmMascota.data().ctx_raza,
+                            "Edad" to vmMascota.data().ctx_edad,
+                            "Color" to vmMascota.data().ctx_color,
+                            "Foto" to uri_foto
+                        )
+
+                        db.collection("Usuarios").document(usuario).collection("Mascotas")
+                            .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
+                                Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Registro Fallido", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Fallo al subir la foto", Toast.LENGTH_LONG).show()
+                }
+        } else {
+            val datos_mascota = hashMapOf(
+                "Nombre" to vmMascota.data().ctx_nombre,
+                "Tipo" to vmMascota.data().ctx_tipo_mascota,
+                "Raza" to vmMascota.data().ctx_raza,
+                "Edad" to vmMascota.data().ctx_edad,
+                "Color" to vmMascota.data().ctx_color
+            )
+
+            db.collection("Usuarios").document(usuario!!).collection("Mascotas")
+                .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
+                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Registro Fallido", Toast.LENGTH_SHORT).show()
+                }
+        }
 
     }
 

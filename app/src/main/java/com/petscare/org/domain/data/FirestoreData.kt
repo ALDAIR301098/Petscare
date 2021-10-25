@@ -15,13 +15,14 @@ class FirestoreData {
             .collection("Mascotas").get().addOnSuccessListener { result ->
                 val list_data = mutableListOf<Mascota>()
                 for (document in result){
+                    val id = firebase_user
                     val nombre = document.getString("Nombre")
                     val tipo = document.getString("Tipo")
                     val raza = document.getString("Raza")
                     val edad = document.getString("Edad")
                     val color = document.getString("Color")
                     val foto = document.getString("Foto")
-                    val mascota = Mascota(nombre,tipo,raza,edad,color,foto)
+                    val mascota = Mascota(id,nombre,tipo,raza,edad,color,foto)
                     list_data.add(mascota)
                 }
                 mutable_ldata.value = list_data
