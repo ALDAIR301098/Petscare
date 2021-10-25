@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.petscare.org.R
 import com.petscare.org.databinding.ActivityRegistroBinding
-import com.petscare.org.modelo.ModeloItemsDialogSelector
+import com.petscare.org.modelo.objetos.Item1
 import com.petscare.org.utilidades.CropImageUtil
 import com.petscare.org.utilidades.FileUtil
 import com.petscare.org.utilidades.KeyboardUtil
@@ -196,20 +196,15 @@ class ActivityRegistro : AppCompatActivity(), OnFragmentNavigationListener {
     }
 
     private fun mostrarSelectorFoto() {
-        val items = ArrayList<ModeloItemsDialogSelector>()
-        items.add(ModeloItemsDialogSelector("Camara", R.drawable.ic_camera))
-        items.add(ModeloItemsDialogSelector("Galeria", R.drawable.ic_galeria))
-        items.add(ModeloItemsDialogSelector("Mis archivos",R.drawable.ic_carpeta))
-        items.add(ModeloItemsDialogSelector("Cancelar", R.drawable.ic_cancelar))
+        val items = ArrayList<Item1>()
+        items.add(Item1("Camara", R.drawable.ic_camera))
+        items.add(Item1("Galeria", R.drawable.ic_galeria))
+        items.add(Item1("Mis archivos",R.drawable.ic_carpeta))
+        items.add(Item1("Cancelar", R.drawable.ic_cancelar))
 
         val dialogo = MaterialAlertDialogBuilder(this)
             .setTitle("Establecer foto de perfil")
-            .setAdapter(
-                AdaptadorListaOpciones.getAdaptador(
-                    this,
-                    items
-                )
-            ) { dialog_interface, index ->
+            .setAdapter(AdaptadorListaOpciones.getAdaptador(this, items)) { dialog_interface, index ->
                 when (index) {
                     0 -> verificarPermisosCamara()
                     1 -> abrirGaleria()

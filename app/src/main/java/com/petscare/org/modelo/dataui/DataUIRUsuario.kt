@@ -1,8 +1,8 @@
-package com.petscare.org.modelo
+package com.petscare.org.modelo.dataui
 
 import java.io.File
 
-data class ModeloDatosRegistro(
+data class DataUIRUsuario(
     var frag_index: Int = 0,
     var UID: String = "",
     var nombre: String = "",

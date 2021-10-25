@@ -31,7 +31,7 @@ public class ActivityMenu extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         crearFragments();
-        getSupportFragmentManager().beginTransaction().add(R.id.contenedor_frags_menu,frag_feed).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor_frags_menu,frag_feed).commit();
         eventosUI();
 
     }

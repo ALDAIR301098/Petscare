@@ -2,14 +2,14 @@ package com.petscare.org.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.petscare.org.modelo.ModeloDatosRegistro
+import com.petscare.org.modelo.dataui.DataUIRUsuario
 import java.io.File
 
 class ViewModelRegistro : ViewModel() {
-    val ldata_registro = MutableLiveData<ModeloDatosRegistro>()
+    val ldata_registro = MutableLiveData<DataUIRUsuario>()
 
     init {
-        ldata_registro.value = ModeloDatosRegistro()
+        ldata_registro.value = DataUIRUsuario()
     }
 
     fun setUID(UID: String){

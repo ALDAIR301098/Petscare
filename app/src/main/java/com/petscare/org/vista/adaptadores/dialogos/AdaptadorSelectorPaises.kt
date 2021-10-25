@@ -1,7 +1,7 @@
 package com.petscare.org.vista.adaptadores.dialogos
 
 import android.app.Activity
-import com.petscare.org.modelo.ModeloPais
+import com.petscare.org.modelo.objetos.Pais
 import android.widget.ArrayAdapter
 import android.view.ViewGroup
 import android.view.LayoutInflater
@@ -11,13 +11,13 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 
-class AdaptadorSelectorPaises(private val actividad: Activity, layout: Int, private val lista_items: ArrayList<ModeloPais>)
-    : ArrayAdapter<ModeloPais>(actividad, layout, lista_items) {
+class AdaptadorSelectorPaises(private val actividad: Activity, layout: Int, private val lista_items: ArrayList<Pais>)
+    : ArrayAdapter<Pais>(actividad, layout, lista_items) {
     override fun getCount(): Int {
         return lista_items.size
     }
 
-    override fun getItem(poscision: Int): ModeloPais {
+    override fun getItem(poscision: Int): Pais {
         return lista_items[poscision]
     }
 

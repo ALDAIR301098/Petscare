@@ -105,13 +105,13 @@ class FragmentCorreoContrasena : Fragment(), AdminDataFragments {
         val storage = Firebase.storage
         val uri_foto_file = Uri.fromFile(vmRegistro.getArchivoFoto())
         val fotoPerfilReferencia = storage.reference.child(vmRegistro.getUID()!!).child("Foto de Perfil").child(uri_foto_file.lastPathSegment!!)
-        val uploadTask = fotoPerfilReferencia.putFile(uri_foto_file)
+        fotoPerfilReferencia.putFile(uri_foto_file)
 
-        db.collection("Usuarios").document(vmRegistro.getUID()!!).set(user_info).addOnSuccessListener { listener ->
+        db.collection("Usuarios").document(vmRegistro.getUID()!!).set(user_info).addOnSuccessListener {
             change_fragment_listener.mostrarFragment(3)
         }
             .addOnFailureListener {
-                Toast.makeText(requireContext(),"Registro de datos fallido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),"Registro de datos fallido: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

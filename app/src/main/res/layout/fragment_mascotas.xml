@@ -6,28 +6,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".vista.fragments.menu.FragmentMascotas">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout2"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            style="@style/Widget.MaterialComponents.Toolbar.Surface">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Mis Mascotas"
+                app:menu="@menu/menu_mascotas"
                 app:navigationIcon="@drawable/ic_menu"
                 app:navigationIconTint="@color/titulos"
-                app:menu="@menu/menu_mascotas"/>
+                app:title="Mis Mascotas" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_mascotas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab_agregar"
@@ -36,12 +42,12 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:backgroundTint="@color/rojo_pastel"
-            android:textColor="@color/blanco"
+            android:minHeight="60dp"
             android:text="AGREGAR"
+            android:textColor="@color/blanco"
             app:icon="@drawable/ic_agregar"
             app:iconTint="@color/blanco"
-            android:minHeight="60dp"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -1,6 +1,6 @@
-package com.petscare.org.modelo
+package com.petscare.org.modelo.dataui
 
-data class ModeloDatosAuth(
+data class UIAuth(
     var frag_index: Int = 0,
     var lada: String= "+52",
     var telefono: String? = null,

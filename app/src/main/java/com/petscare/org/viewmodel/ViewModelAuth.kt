@@ -2,14 +2,14 @@ package com.petscare.org.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.petscare.org.modelo.ModeloDatosAuth
+import com.petscare.org.modelo.dataui.UIAuth
 
 class ViewModelAuth : ViewModel() {
 
-    val ldata_auth = MutableLiveData<ModeloDatosAuth>()
+    val ldata_auth = MutableLiveData<UIAuth>()
 
     init {
-        ldata_auth.value = ModeloDatosAuth()
+        ldata_auth.value = UIAuth()
     }
 
     fun setIndex(index: Int){
