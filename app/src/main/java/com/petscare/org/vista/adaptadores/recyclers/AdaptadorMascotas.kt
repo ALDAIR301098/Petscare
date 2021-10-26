@@ -1,6 +1,8 @@
 package com.petscare.org.vista.adaptadores.recyclers
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -53,9 +55,14 @@ class AdaptadorMascotas(private val context: Context, private val vista_dialogo_
             Glide.with(context).load(mascota?.foto).circleCrop().into(img_foto)
 
             img_foto.setOnClickListener {
-                MaterialAlertDialogBuilder(context)
-                    .setView(vista_dialogo_foto)
-                    .show()
+                val dialogo = Dialog(context)
+                dialogo.setContentView(R.layout.dialogo_foto)
+                val img_foto = dialogo.findViewById<ImageView>(R.id.img_foto_dm)
+                val txt_nombre = dialogo.findViewById<TextView>(R.id.txt_nombre_dm)
+                Glide.with(context).load(mascota?.foto).into(img_foto)
+                txt_nombre.text = mascota?.nombre
+                //img_foto.setBackgroundColor(Color.BLUE)
+                dialogo.show()
             }
         }
     }

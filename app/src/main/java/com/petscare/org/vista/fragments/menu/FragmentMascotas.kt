@@ -70,7 +70,7 @@ class FragmentMascotas : Fragment() {
 
     var result_agregar_mascota = registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            Toast.makeText(requireContext(),"EXITO",Toast.LENGTH_SHORT).show()
+            adaptador_mascotas.notifyDataSetChanged()
         }
     }
 }

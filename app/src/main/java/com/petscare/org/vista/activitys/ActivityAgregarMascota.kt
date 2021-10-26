@@ -19,7 +19,6 @@ import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -34,7 +33,6 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class ActivityAgregarMascota : AppCompatActivity() {
 
@@ -380,30 +378,12 @@ class ActivityAgregarMascota : AppCompatActivity() {
         val storage = Firebase.storage
         val db = Firebase.firestore
 
-        //Estructura de datos
-        /*val data_pet_user = hashMapOf(
-            "Nombre" to vmMascota.data().ctx_nombre,
-            "Tipo" to vmMascota.data().ctx_tipo_mascota,
-            "Raza" to vmMascota.data().ctx_raza,
-            "Edad" to vmMascota.data().ctx_edad,
-            "Color" to vmMascota.data().ctx_color
-        )
-
-        //Guardar los datos
-        db.collection("Usuarios").document(usuario!!).collection("Mascotas")
-            .document(vmMascota.data().ctx_nombre!!).set(data_pet_user).addOnSuccessListener {
-                Toast.makeText(this,"Registro exitoso",Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this,"Registro Fallido",Toast.LENGTH_SHORT).show()
-            }*/
-
         //Subir foto
         if (vmMascota.data().img_foto != null) {
             //Subir la foto a storage
-            val file = vmMascota.data().img_foto
+            val url_file = vmMascota.data().img_foto
             storage.reference.child(usuario!!)
-                .child("Fotos_Mascotas/${vmMascota.data().ctx_nombre}.jpg").putFile(file!!)
+                .child("Fotos_Mascotas/${vmMascota.data().ctx_nombre}.jpg").putFile(url_file!!)
                 .addOnSuccessListener {
                     it.storage.downloadUrl.addOnSuccessListener { download_uri ->
                         val uri_foto = download_uri.toString()

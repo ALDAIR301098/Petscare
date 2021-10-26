@@ -1,17 +1,49 @@
-package com.petscare.org.vista.fragments.menu;
+package com.petscare.org.vista.fragments.menu
+import com.petscare.org.vista.adaptadores.recyclers.AdaptadorPrueba
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.Query
+import com.petscare.org.databinding.FragmentServiciosBinding
 
-import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import com.petscare.org.R;
+class FragmentServicios : Fragment() {
+    private var binding: FragmentServiciosBinding? = null
+    private lateinit var adaptador: AdaptadorPrueba
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentServiciosBinding.inflate(inflater, container, false)
+        return binding!!.root
+    }
 
-public class FragmentServicios extends Fragment {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        mostrarRecycler()
+    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_servicios, container, false);
+    private fun mostrarRecycler() {
+        val id_usuario = FirebaseAuth.getInstance().currentUser!!.uid
+        val query: Query = FirebaseFirestore.getInstance().collection("Usuarios").document(id_usuario)
+                .collection("Mascotas")
+        adaptador = AdaptadorPrueba(requireContext(), query)
+        binding!!.recyclerPrueba.layoutManager = LinearLayoutManager(requireContext())
+        binding!!.recyclerPrueba.adapter = adaptador
+
+        //Toast.makeText(requireContext(), query.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        adaptador.initListener()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adaptador.initListener()
     }
 }

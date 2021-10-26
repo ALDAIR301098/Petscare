@@ -1,6 +1,5 @@
 package com.petscare.org.domain.data
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -11,7 +10,7 @@ class FirestoreData {
     fun getDataMascotas(): LiveData<MutableList<Mascota>>{
         val mutable_ldata = MutableLiveData<MutableList<Mascota>>()
         val firebase_user = FirebaseAuth.getInstance().currentUser?.uid
-        val firestore = FirebaseFirestore.getInstance().collection("Usuarios").document(firebase_user!!)
+        FirebaseFirestore.getInstance().collection("Usuarios").document(firebase_user!!)
             .collection("Mascotas").get().addOnSuccessListener { result ->
                 val list_data = mutableListOf<Mascota>()
                 for (document in result){
