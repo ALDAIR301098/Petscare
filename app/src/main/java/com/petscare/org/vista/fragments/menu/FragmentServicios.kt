@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.Query
 import com.petscare.org.databinding.FragmentServiciosBinding
 
@@ -28,22 +27,21 @@ class FragmentServicios : Fragment() {
 
     private fun mostrarRecycler() {
         val id_usuario = FirebaseAuth.getInstance().currentUser!!.uid
-        val query: Query = FirebaseFirestore.getInstance().collection("Usuarios").document(id_usuario)
-                .collection("Mascotas")
+        val query: Query = FirebaseFirestore.getInstance().collection("Usuarios")
+            .document(id_usuario).collection("Mascotas")
         adaptador = AdaptadorPrueba(requireContext(), query)
         binding!!.recyclerPrueba.layoutManager = LinearLayoutManager(requireContext())
         binding!!.recyclerPrueba.adapter = adaptador
 
-        //Toast.makeText(requireContext(), query.toString(), Toast.LENGTH_LONG).show()
     }
 
     override fun onStart() {
         super.onStart()
-        adaptador.initListener()
+        adaptador.startListener()
     }
 
     override fun onStop() {
         super.onStop()
-        adaptador.initListener()
+        adaptador.stopListener()
     }
 }

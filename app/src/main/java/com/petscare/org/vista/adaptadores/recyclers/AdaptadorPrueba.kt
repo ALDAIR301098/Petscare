@@ -15,12 +15,10 @@ import com.petscare.org.R
 import com.petscare.org.modelo.objetos.Mascota
 
 class AdaptadorPrueba(
-    private val context: Context, query: Query
-): FirestoreAdapter<AdaptadorPrueba.MascotasHolder>(query) {
+    private val context: Context, query: Query):
+    FirestoreAdapter<AdaptadorPrueba.MascotasHolder>(query) {
 
-     inner class MascotasHolder(
-         itemView: View
-     ): RecyclerView.ViewHolder(itemView) {
+     inner class MascotasHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val img_foto: ImageView = itemView.findViewById(R.id.img_foto_mascota)
         private val txt_nombre: TextView = itemView.findViewById(R.id.txt_nombre)

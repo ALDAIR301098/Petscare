@@ -380,13 +380,20 @@ class ActivityAgregarMascota : AppCompatActivity() {
 
         //Subir foto
         if (vmMascota.data().img_foto != null) {
-            //Subir la foto a storage
+
+            //Recuperar la url de la foto en el almacenamiento local
             val url_file = vmMascota.data().img_foto
+
+            //Obtener la referencia de storage donde se guardara la foto y subir la foto
             storage.reference.child(usuario!!)
                 .child("Fotos_Mascotas/${vmMascota.data().ctx_nombre}.jpg").putFile(url_file!!)
                 .addOnSuccessListener {
+
+                    //Obtener la url de descarga de la foto
                     it.storage.downloadUrl.addOnSuccessListener { download_uri ->
                         val uri_foto = download_uri.toString()
+
+                        //Llenar los datos de la mascota
                         val datos_mascota = hashMapOf(
                             "Nombre" to vmMascota.data().ctx_nombre,
                             "Tipo" to vmMascota.data().ctx_tipo_mascota,
@@ -395,10 +402,12 @@ class ActivityAgregarMascota : AppCompatActivity() {
                             "Color" to vmMascota.data().ctx_color,
                             "Foto" to uri_foto
                         )
-
+                        //Subir los datos a Firestore
                         db.collection("Usuarios").document(usuario).collection("Mascotas")
                             .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
                                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                                setResult(Activity.RESULT_OK)
+                                finish()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this, "Registro Fallido", Toast.LENGTH_SHORT).show()
@@ -408,24 +417,26 @@ class ActivityAgregarMascota : AppCompatActivity() {
                 .addOnFailureListener {
                     Toast.makeText(this, "Fallo al subir la foto", Toast.LENGTH_LONG).show()
                 }
-        } else {
+        } else{
             val datos_mascota = hashMapOf(
                 "Nombre" to vmMascota.data().ctx_nombre,
                 "Tipo" to vmMascota.data().ctx_tipo_mascota,
                 "Raza" to vmMascota.data().ctx_raza,
                 "Edad" to vmMascota.data().ctx_edad,
-                "Color" to vmMascota.data().ctx_color
-            )
+                "Color" to vmMascota.data().ctx_color,
 
+                )
+            //Subir los datos a Firestore
             db.collection("Usuarios").document(usuario!!).collection("Mascotas")
                 .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK)
+                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Registro Fallido", Toast.LENGTH_SHORT).show()
                 }
         }
-
     }
 
     private fun salvarDatos() {

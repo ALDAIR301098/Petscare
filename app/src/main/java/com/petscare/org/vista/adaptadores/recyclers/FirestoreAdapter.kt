@@ -12,7 +12,7 @@ abstract class FirestoreAdapter<VH: RecyclerView.ViewHolder>(
     private var registro: ListenerRegistration? = null
     private val items = ArrayList<DocumentSnapshot>()
 
-    open fun initListener(){
+    open fun startListener(){
         if (registro == null){
             registro = query.addSnapshotListener(this)
         }

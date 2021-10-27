@@ -13,8 +13,11 @@ class ViewModelMascota: ViewModel() {
 
     private val ldata_mascotas = MutableLiveData<DataUIRMascota>()
 
+    val ldata_edad = MutableLiveData<Int>()
+
     init {
         ldata_mascotas.value = DataUIRMascota()
+        ldata_edad.value = 0
     }
 
     fun data(): DataUIRMascota {
