@@ -9,11 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.petscare.org.R;
+import com.petscare.org.modelo.objetos.Noticia;
+
+import java.util.ArrayList;
 
 public class AdaptadorFeed extends RecyclerView.Adapter<AdaptadorFeed.MyViewHolder> {
 
-    String[] list;
+    ArrayList<Noticia> listanoticias;
 
+     public AdaptadorFeed(ArrayList<Noticia> listanoticias){
+     this.listanoticias = listanoticias;
+     }
+
+
+
+     //SIRVE PARA INFLAR LA VISTA CREADA EN EL DISEÑADOR, PORQUE SE TIENE QUE ENCONTRAR SU ID QUE EN ESTE CASO ES lista_adatptador"
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -21,25 +31,33 @@ public class AdaptadorFeed extends RecyclerView.Adapter<AdaptadorFeed.MyViewHold
         ));
     }
 
+    //2..SE OBTIENEN LOS PARAMETROS DE LA PLANTILLA/CLASE NOTICIAS, Y CON EL GET SE OBTIENEN Y PONEN EN EL TXT
+    //2..EN GENERAL EL METODO SIRVE PARA MOSTRAR EN CADA ITEM SUS DATOS CORRESPONDIENTES OBTENIDOS DESDE EL ARRAYLIST
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.textView6.setText(list[position]);
-
+         holder.txtNoticia.setText(listanoticias.get(position).getTitulo());
+         holder.txtAutores.setText(listanoticias.get(position).getFuenteNoticia());
     }
 
+
+
+    //RETORNA LA CANTIDAD DE LOS ITEMS QUE SE LE PASARON, SI HAY 10 NOMBRES, RETORNARA 10 ESPACIOS
     @Override
     public int getItemCount() {
-        return 10;
+        return listanoticias.size();
     }
 
+
+    //1...OBTIENE LA VISTA XML, Y SE ""CONVIERTE"" EN JAVA PARA TENER MAYOR MANIPULACION DE SUS COMPONENTES
     static class MyViewHolder extends RecyclerView.ViewHolder{
-
-
-        TextView textView6;
+        //COMPONENTE CREADO
+        TextView txtNoticia;
+        TextView txtAutores;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView6 = itemView.findViewById(R.id.textView);
+            txtNoticia = itemView.findViewById(R.id.txtNoticias);
+            txtAutores = itemView.findViewById(R.id.txtAutores);
         }
     }
 }

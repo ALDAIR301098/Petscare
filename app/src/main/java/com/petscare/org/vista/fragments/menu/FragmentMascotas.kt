@@ -25,7 +25,6 @@ class FragmentMascotas : Fragment() {
     private var _binding: FragmentMascotasBinding? = null
     private val binding get() = _binding!!
     private lateinit var adaptador_mascotas : AdaptadorMascotas
-    private var edad: Int= 0; //Edad
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMascotasBinding.inflate(inflater, container, false)
@@ -36,10 +35,6 @@ class FragmentMascotas : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mostrarRecycler()
         eventosUI()
-
-        vmMascotas.ldata_edad.observe(viewLifecycleOwner){ edad ->
-            this.edad = edad
-        }
     }
 
     private fun mostrarRecycler() {
@@ -68,10 +63,8 @@ class FragmentMascotas : Fragment() {
 
     private fun eventosUI() {
         binding.fabAgregar.setOnClickListener { view: View? ->
-        edad++
-        Toast.makeText(requireContext(),"$edad",Toast.LENGTH_SHORT).show()
-        //val intent = Intent(requireContext(), ActivityAgregarMascota::class.java)
-            //result_agregar_mascota.launch(intent)
+        val intent = Intent(requireContext(), ActivityAgregarMascota::class.java)
+            result_agregar_mascota.launch(intent)
         }
     }
 
@@ -83,6 +76,5 @@ class FragmentMascotas : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        vmMascotas.ldata_edad.value = edad
     }
 }
