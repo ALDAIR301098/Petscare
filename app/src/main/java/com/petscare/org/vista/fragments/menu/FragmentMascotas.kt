@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.petscare.org.R
 import com.petscare.org.databinding.FragmentMascotasBinding
 import com.petscare.org.viewmodel.ViewModelMascota
@@ -21,10 +24,14 @@ import com.petscare.org.vista.adaptadores.recyclers.AdaptadorMascotas
 
 class FragmentMascotas : Fragment() {
 
-    private val vmMascotas: ViewModelMascota by activityViewModels()
     private var _binding: FragmentMascotasBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adaptador_mascotas : AdaptadorMascotas
+    private lateinit var adaptador_mascotas: AdaptadorMascotas
+
+    override fun onStart() {
+        super.onStart()
+        adaptador_mascotas.startListener()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMascotasBinding.inflate(inflater, container, false)
@@ -35,46 +42,37 @@ class FragmentMascotas : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mostrarRecycler()
         eventosUI()
+
     }
 
     private fun mostrarRecycler() {
-        val view = layoutInflater.inflate(R.layout.dialogo_foto,requireActivity().findViewById(R.id.contenedor_dialogo_fm),false)
-        adaptador_mascotas = AdaptadorMascotas(requireContext(),view)
+
+        val id_usuario = Firebase.auth.currentUser!!.uid
+        val consulta = Firebase.firestore.collection("Usuarios").document(id_usuario)
+            .collection("Mascotas")
+
+        adaptador_mascotas = AdaptadorMascotas(requireContext(), consulta)
         binding.recyclerMascotas.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerMascotas.adapter = adaptador_mascotas
-        observar_ldata()
 
-        binding.recyclerMascotas.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        binding.recyclerMascotas.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0)binding.fabAgregar.shrink()
+                if (dy > 0) binding.fabAgregar.shrink()
                 else binding.fabAgregar.extend()
             }
         })
     }
 
-    fun observar_ldata(){
-        vmMascotas.getListaMascotas().observe(viewLifecycleOwner){
-            adaptador_mascotas.setListaMascotas(it)
-            adaptador_mascotas.notifyDataSetChanged()
-        }
-    }
-
     private fun eventosUI() {
         binding.fabAgregar.setOnClickListener { view: View? ->
-        val intent = Intent(requireContext(), ActivityAgregarMascota::class.java)
-            result_agregar_mascota.launch(intent)
+            startActivity(Intent(requireContext(), ActivityAgregarMascota::class.java))
         }
     }
 
-    var result_agregar_mascota = registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
+        adaptador_mascotas.stopListener()
     }
 }

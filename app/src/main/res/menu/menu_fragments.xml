@@ -15,6 +15,11 @@
         android:title="Servicios"/>
 
     <item
+        android:id="@+id/frag_dispositivos"
+        android:icon="@drawable/ic_dispositivos"
+        android:title="Dispositivos"/>
+
+    <item
         android:id="@+id/frag_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="Perfil"/>

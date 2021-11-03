@@ -402,7 +402,7 @@ class ActivityAgregarMascota : AppCompatActivity() {
                             "Color" to vmMascota.data().ctx_color,
                             "Foto" to uri_foto
                         )
-                        //Subir los datos a Firestore
+                        //Subir los datos a FirestoreMascotas
                         db.collection("Usuarios").document(usuario).collection("Mascotas")
                             .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
                                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
@@ -426,7 +426,7 @@ class ActivityAgregarMascota : AppCompatActivity() {
                 "Color" to vmMascota.data().ctx_color,
 
                 )
-            //Subir los datos a Firestore
+            //Subir los datos a FirestoreMascotas
             db.collection("Usuarios").document(usuario!!).collection("Mascotas")
                 .document(vmMascota.data().ctx_nombre!!).set(datos_mascota).addOnSuccessListener {
                     Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()

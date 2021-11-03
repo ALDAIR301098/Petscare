@@ -12,22 +12,6 @@ abstract class FirestoreAdapter<VH: RecyclerView.ViewHolder>(
     private var registro: ListenerRegistration? = null
     private val items = ArrayList<DocumentSnapshot>()
 
-    open fun startListener(){
-        if (registro == null){
-            registro = query.addSnapshotListener(this)
-        }
-    }
-
-    open fun stopListener(){
-        if (registro != null){
-            registro!!.remove()
-            registro = null
-        }
-
-        items.clear()
-        notifyDataSetChanged()
-    }
-
     override fun onEvent(value: QuerySnapshot?, exception: FirebaseFirestoreException?) {
 
         //Mostrar si hay un error en el logcat
@@ -36,7 +20,7 @@ abstract class FirestoreAdapter<VH: RecyclerView.ViewHolder>(
             return
         }
 
-        //Escuchar los eventos en Firestore
+        //Escuchar los eventos en FirestoreMascotas
         for(cambio in value!!.documentChanges){
             when(cambio.type){
                 DocumentChange.Type.ADDED -> itemAgregado(cambio)
@@ -73,5 +57,21 @@ abstract class FirestoreAdapter<VH: RecyclerView.ViewHolder>(
 
     protected open fun getItem(index: Int): DocumentSnapshot?{
         return items[index]
+    }
+
+    open fun startListener(){
+        if (registro == null){
+            registro = query.addSnapshotListener(this)
+        }
+    }
+
+    open fun stopListener(){
+        if (registro != null){
+            registro!!.remove()
+            registro = null
+        }
+
+        items.clear()
+        notifyDataSetChanged()
     }
 }

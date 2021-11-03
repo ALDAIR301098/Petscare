@@ -142,4 +142,9 @@
         <item name="android:textSize">34sp</item>
     </style>
 
+    <style name="CUSTOM_CHIP_STYLE" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="chipIconEnabled">true</item>
+    </style>
+
 </resources>

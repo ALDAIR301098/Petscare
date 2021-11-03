@@ -14,18 +14,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.petscare.org.R
 import com.petscare.org.modelo.objetos.Mascota
 
-class AdaptadorMascotas(private val context: Context, private val vista_dialogo_foto: View): RecyclerView.Adapter<AdaptadorMascotas.HolderMascotas>() {
-
-    private var lista_mascotas = mutableListOf<Mascota>()
-
-    fun setListaMascotas(lista_mascotas : MutableList<Mascota>){
-        this.lista_mascotas = lista_mascotas
-    }
+class AdaptadorMascotas(private val context: Context, consulta: Query): FirestoreAdapter<AdaptadorMascotas.HolderMascotas>(consulta) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderMascotas {
         val view = LayoutInflater.from(context).inflate(R.layout.item_mascota,parent,false)
@@ -33,13 +29,13 @@ class AdaptadorMascotas(private val context: Context, private val vista_dialogo_
     }
 
     override fun onBindViewHolder(holder: HolderMascotas, position: Int) {
-        val mascota = lista_mascotas[position]
-        holder.mostrarDatos(mascota)
+        getItem(position)?.let { document ->
+            holder.mostrarDatos(document)
+        }
+    /*val mascota = lista_mascotas[position]
+        holder.mostrarDatos(mascota)*/
     }
 
-    override fun getItemCount(): Int {
-        return lista_mascotas.size
-    }
 
     inner class HolderMascotas(vista_item: View): RecyclerView.ViewHolder(vista_item) {
 
@@ -48,22 +44,30 @@ class AdaptadorMascotas(private val context: Context, private val vista_dialogo_
         private val txt_raza = vista_item.findViewById<TextView>(R.id.txt_raza)
         private val img_foto = vista_item.findViewById<ImageView>(R.id.img_foto_mascota)
 
-        fun mostrarDatos(mascota: Mascota?) {
-            txt_nombre.text = mascota?.nombre
-            txt_tipo.text = "Mascota: ".plus(mascota?.tipo)
-            txt_raza.text = "Raza: ".plus(mascota?.raza)
-            Glide.with(context).load(mascota?.foto).circleCrop().into(img_foto)
+        fun mostrarDatos(document: DocumentSnapshot?) {
+            val mascota = createMascota(document)
+            txt_nombre.text = mascota.nombre
+            txt_tipo.text = "Mascota: ".plus(mascota.tipo)
+            txt_raza.text = "Raza: ".plus(mascota.raza)
+            Glide.with(context).load(mascota.foto).circleCrop().into(img_foto)
 
             img_foto.setOnClickListener {
                 val dialogo = Dialog(context)
                 dialogo.setContentView(R.layout.dialogo_foto)
                 val img_foto = dialogo.findViewById<ImageView>(R.id.img_foto_dm)
                 val txt_nombre = dialogo.findViewById<TextView>(R.id.txt_nombre_dm)
-                Glide.with(context).load(mascota?.foto).into(img_foto)
-                txt_nombre.text = mascota?.nombre
-                //img_foto.setBackgroundColor(Color.BLUE)
+                Glide.with(context).load(mascota.foto).into(img_foto)
+                txt_nombre.text = mascota.nombre
                 dialogo.show()
             }
         }
+    }
+
+    private fun createMascota(document: DocumentSnapshot?): Mascota {
+        val nombre = document!!.getString("Nombre")
+        val tipo = document.getString("Tipo")
+        val raza = document.getString("Raza")
+        val foto = document.getString("Foto")
+        return Mascota(null,nombre,tipo,raza,null,null,foto)
     }
 }

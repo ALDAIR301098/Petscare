@@ -3,14 +3,12 @@ package com.petscare.org.vista.activitys;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.petscare.org.R;
 import com.petscare.org.databinding.ActivityMenuBinding;
 import com.petscare.org.viewmodel.ViewModelMenu;
 import com.petscare.org.vista.Interfaces.OnFragmentNavigationListener;
+import com.petscare.org.vista.fragments.menu.FragmentDispositivos;
 import com.petscare.org.vista.fragments.menu.FragmentFeed;
 import com.petscare.org.vista.fragments.menu.FragmentMascotas;
 import com.petscare.org.vista.fragments.menu.FragmentPerfil;
@@ -26,6 +24,7 @@ public class ActivityMenu extends AppCompatActivity implements OnFragmentNavigat
     private FragmentFeed frag_feed;
     private FragmentMascotas frag_mascotas;
     private FragmentServicios frag_servicios;
+    private FragmentDispositivos frag_dispositivos;
     private FragmentPerfil frag_perfil;
 
     @Override
@@ -58,8 +57,11 @@ public class ActivityMenu extends AppCompatActivity implements OnFragmentNavigat
             } else if (item.getItemId() == R.id.frag_servicios){
                 mostrarFragment(2);
                 return true;
-            } else  if (item.getItemId() == R.id.frag_perfil){
+            } else if (item.getItemId() == R.id.frag_dispositivos){
                 mostrarFragment(3);
+                return true;
+            } else  if (item.getItemId() == R.id.frag_perfil){
+                mostrarFragment(4);
                 return true;
             }
             return false;
@@ -71,6 +73,7 @@ public class ActivityMenu extends AppCompatActivity implements OnFragmentNavigat
         frag_feed = new FragmentFeed();
         frag_mascotas = new FragmentMascotas();
         frag_servicios = new FragmentServicios();
+        frag_dispositivos = new FragmentDispositivos();
         frag_perfil = new FragmentPerfil();
     }
 
@@ -91,6 +94,10 @@ public class ActivityMenu extends AppCompatActivity implements OnFragmentNavigat
                 break;
 
             case 3:
+                transaction.replace(R.id.contenedor_frags_menu,frag_dispositivos).commit();
+                break;
+
+            case 4:
                 transaction.replace(R.id.contenedor_frags_menu,frag_perfil).commit();
                 break;
         }

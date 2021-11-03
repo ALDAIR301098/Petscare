@@ -41,17 +41,18 @@ public class FragmentPerfil extends Fragment {
                 Toast.makeText(requireContext(),"Comprueba tu conexíon a internet",Toast.LENGTH_SHORT).show();
             }
         });
+
+        binding.btnPrueba.setOnClickListener(view ->{
+
+        });
     }
 
     private void cerrarSesion() {
         FirebaseAuth firebaseAuth;
-        FirebaseAuth.AuthStateListener auth_listener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null){
-                    startActivity(new Intent(getContext(), ActivityInicio.class));
-                    requireActivity().finish();
-                }
+        FirebaseAuth.AuthStateListener auth_listener = auth -> {
+            if (auth.getCurrentUser() == null){
+                startActivity(new Intent(getContext(), ActivityInicio.class));
+                requireActivity().finish();
             }
         };
         firebaseAuth = FirebaseAuth.getInstance();
