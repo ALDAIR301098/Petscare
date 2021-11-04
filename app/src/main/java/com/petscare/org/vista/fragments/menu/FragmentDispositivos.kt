@@ -1,21 +1,28 @@
 package com.petscare.org.vista.fragments.menu
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.petscare.org.R
 import com.petscare.org.databinding.FragmentDispositivosBinding
 import com.petscare.org.domain.providers.TipoDispositivo
 import com.petscare.org.modelo.objetos.Dispositivo
+import com.petscare.org.vista.Interfaces.card_draggable.MyItemTouchHelperCallback
+import com.petscare.org.vista.Interfaces.card_draggable.OnStartDragListener
+import com.petscare.org.vista.activitys.ActivityAgregarDispositivo
 import com.petscare.org.vista.adaptadores.recyclers.AdaptadorDispositivos
 
 class FragmentDispositivos : Fragment() {
 
     private var _binding: FragmentDispositivosBinding? = null
     private val binding get() = _binding!!
+    private var itemTouchHelper:ItemTouchHelper? = null
 
     private lateinit var adaptador_dispositivos: AdaptadorDispositivos
 
@@ -28,11 +35,20 @@ class FragmentDispositivos : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mostrarRecycler()
+        eventosUI()
+
     }
+
+    private fun eventosUI() {
+        binding.fabAgregarDispositivo.setOnClickListener {
+            startActivity(Intent(requireContext(), ActivityAgregarDispositivo::class.java))
+        }
+    }
+
 
     private fun mostrarRecycler() {
 
-        val lista_dispositivos = listOf(
+        val lista_dispositivos = mutableListOf(
             Dispositivo("Dispensador de Agua 1",TipoDispositivo.DISPENSADOR_AGUA.name,true,87f,false),
             Dispositivo("Dispensador de Alimento 2",TipoDispositivo.DISPENSADOR_ALIMENTO.name,false,null),
             Dispositivo("Puerta principal",TipoDispositivo.PUERTA.name,true,null,true),
@@ -46,9 +62,18 @@ class FragmentDispositivos : Fragment() {
             Dispositivo("Foco 1", TipoDispositivo.FOCO.name,true,null,false)
         )
 
+        binding.recyclerDispositivos.setHasFixedSize(true)
         binding.recyclerDispositivos.layoutManager = GridLayoutManager(requireContext(),2)
-        adaptador_dispositivos = AdaptadorDispositivos(requireContext(),lista_dispositivos)
+        adaptador_dispositivos = AdaptadorDispositivos(requireContext(),lista_dispositivos,object : OnStartDragListener{
+            override fun onStartDrag(viewHolder: RecyclerView.ViewHolder?) {
+                itemTouchHelper!!.startDrag(viewHolder!!)
+            }
+
+        })
         binding.recyclerDispositivos.adapter = adaptador_dispositivos
+        val callback = MyItemTouchHelperCallback(adaptador_dispositivos)
+        itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper!!.attachToRecyclerView(binding.recyclerDispositivos)
         adaptador_dispositivos.notifyDataSetChanged()
 
     }

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,7 +20,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="@color/titulos"
-        app:strokeWidth="1.5dp">
+        app:strokeWidth="1.5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,6 +37,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
+                android:minLines="2"
+                android:gravity="center"
                 android:justificationMode="none"
                 android:text="Dispensador de alimento 1"
                 android:textAlignment="center"

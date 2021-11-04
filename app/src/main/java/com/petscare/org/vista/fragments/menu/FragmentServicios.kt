@@ -43,7 +43,6 @@ class FragmentServicios : Fragment(), OnMapReadyCallback {
     private val location_callback = object : LocationCallback(){
         override fun onLocationResult(location_result: LocationResult) {
             super.onLocationResult(location_result)
-            Toast.makeText(requireContext(),"Entro",Toast.LENGTH_SHORT).show()
             for (location in location_result.locations){
                 if (requireContext().applicationContext != null){
                     //Obtener la ubicacion del ususario en tiempo real
