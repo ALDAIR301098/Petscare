@@ -1,7 +1,6 @@
 package com.petscare.org.vista.Interfaces.card_draggable
 
 import android.graphics.Canvas
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +46,7 @@ class MyItemTouchHelperCallback(private val adapter: ItemTouchHelperAdapter) :
             false
         } else {
             adapter.onItemMove(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
-            val cardView = viewHolder.itemView.findViewById<MaterialCardView>(R.id.card)
+            val cardView = viewHolder.itemView.findViewById<MaterialCardView>(R.id.card_info_perfil)
             cardView.isChecked = false
             true
         }

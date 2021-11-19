@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
@@ -63,6 +64,22 @@ class FragmentMascotas : Fragment() {
                 else binding.fabAgregar.extend()
             }
         })
+
+        val swipe_item_callback = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                if(direction == ItemTouchHelper.LEFT) Toast.makeText(requireContext(), "Izquierda", Toast.LENGTH_SHORT).show()
+                else if (direction == ItemTouchHelper.RIGHT) Toast.makeText(requireContext(), "Derecha", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipe_item_callback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerMascotas)
     }
 
     private fun eventosUI() {

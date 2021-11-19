@@ -5,10 +5,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.graphics.drawable.DrawableCompat
@@ -49,7 +47,7 @@ class AdaptadorDispositivos(
         private val txt_nombre = itemView.findViewById<TextView>(R.id.txt_nombre_dispositivo)
         private val icon_dispositivo = itemView.findViewById<ImageView>(R.id.icon_dispositivo)
         private val txt_valor = itemView.findViewById<TextView>(R.id.txt_valor_dispositivo)
-        private val card = itemView.findViewById<MaterialCardView>(R.id.card)
+        private val card = itemView.findViewById<MaterialCardView>(R.id.card_info_perfil)
 
         fun mostrarDatos(dispositivo: Dispositivo) {
 

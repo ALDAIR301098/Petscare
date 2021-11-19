@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.petscare.org.R
 import com.petscare.org.databinding.FragmentDispositivosBinding
 import com.petscare.org.domain.providers.TipoDispositivo
 import com.petscare.org.modelo.objetos.Dispositivo
 import com.petscare.org.vista.Interfaces.card_draggable.MyItemTouchHelperCallback
 import com.petscare.org.vista.Interfaces.card_draggable.OnStartDragListener
-import com.petscare.org.vista.activitys.ActivityAgregarDispositivo
+import com.petscare.org.vista.activitys.ActivityAgregarDispositivoBT
 import com.petscare.org.vista.adaptadores.recyclers.AdaptadorDispositivos
 
 class FragmentDispositivos : Fragment() {
@@ -41,7 +40,7 @@ class FragmentDispositivos : Fragment() {
 
     private fun eventosUI() {
         binding.fabAgregarDispositivo.setOnClickListener {
-            startActivity(Intent(requireContext(), ActivityAgregarDispositivo::class.java))
+            startActivity(Intent(requireContext(), ActivityAgregarDispositivoBT::class.java))
         }
     }
 
