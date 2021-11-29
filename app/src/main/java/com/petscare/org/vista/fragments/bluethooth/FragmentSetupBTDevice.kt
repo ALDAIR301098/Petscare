@@ -22,6 +22,8 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -44,6 +46,8 @@ class FragmentSetupBTDevice : Fragment() {
     private val MESSAGE_WRITE: Int = 1
     private val MESSAGE_TOAST: Int = 2
 
+    private lateinit var id_usuario: String
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         change_fragment_listener = context as OnFragmentNavigationListener
@@ -60,6 +64,9 @@ class FragmentSetupBTDevice : Fragment() {
     }
 
     private fun init() {
+
+        id_usuario = Firebase.auth.currentUser!!.uid
+
         bt_adapter = (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
         bt_device = vm_bluetooth.ldata_bt_device.value!!
         connectBtDevice()
@@ -121,8 +128,20 @@ class FragmentSetupBTDevice : Fragment() {
     }
 
     private fun enviarDatosBT() {
-        Toast.makeText(requireContext(), "ENTRE", Toast.LENGTH_SHORT).show()
-        hilo_comunicacion.write("HOLA#")
+        Toast.makeText(requireContext(), "ENVIANDO DATOS", Toast.LENGTH_SHORT).show()
+
+        val nombre_dispositivo = binding.ctxNombreBtDevice.editText!!.text.toString()
+        val wifi_ssid = binding.ctxSsid.editText!!.text.toString()
+        val wifi_password = binding.ctxSsidPassword.editText!!.text.toString()
+        Toast.makeText(requireContext(), wifi_password, Toast.LENGTH_SHORT).show()
+
+        hilo_comunicacion.write(id_usuario.plus("#"))
+        hilo_comunicacion.write(nombre_dispositivo.plus("#"))
+        hilo_comunicacion.write(wifi_ssid.plus("#"))
+        hilo_comunicacion.write(wifi_password.plus("#"))
+
+        Toast.makeText(requireContext(), "DATOS ENVIADOS CORRECTAMENTE", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun connectBtDevice() {

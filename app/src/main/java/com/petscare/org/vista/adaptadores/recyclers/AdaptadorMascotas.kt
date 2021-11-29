@@ -32,10 +32,7 @@ class AdaptadorMascotas(private val context: Context, consulta: Query): Firestor
         getItem(position)?.let { document ->
             holder.mostrarDatos(document)
         }
-    /*val mascota = lista_mascotas[position]
-        holder.mostrarDatos(mascota)*/
     }
-
 
     inner class HolderMascotas(vista_item: View): RecyclerView.ViewHolder(vista_item) {
 

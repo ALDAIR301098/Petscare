@@ -44,6 +44,9 @@
         android:supportsRtl="true"
         android:theme="@style/THEME_SPLASH_SCREEN">
         <activity
+            android:name=".vista.activitys.ActivityNoticia"
+            android:exported="false" />
+        <activity
             android:name=".vista.activitys.ActivityAgregarDispositivoBT"
             android:exported="false" />
 
