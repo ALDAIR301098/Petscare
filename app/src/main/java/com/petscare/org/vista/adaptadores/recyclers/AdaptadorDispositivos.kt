@@ -31,7 +31,7 @@ class AdaptadorDispositivos(
     }
 
     override fun onBindViewHolder(holder: HolderDispositivos, position: Int) {
-        holder.mostrarDatos(lista_dispositivos.get(position))
+        holder.mostrarDatos(lista_dispositivos[position])
         holder.itemView.setOnLongClickListener{
             listener.onStartDrag(holder)
             false

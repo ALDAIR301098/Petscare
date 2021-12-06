@@ -16,6 +16,7 @@ import com.petscare.org.vista.Interfaces.card_draggable.MyItemTouchHelperCallbac
 import com.petscare.org.vista.Interfaces.card_draggable.OnStartDragListener
 import com.petscare.org.vista.activitys.ActivityAgregarDispositivoBT
 import com.petscare.org.vista.adaptadores.recyclers.AdaptadorDispositivos
+import com.petscare.org.vista.adaptadores.recyclers.AdaptadorIOT
 
 class FragmentDispositivos : Fragment() {
 
@@ -23,7 +24,7 @@ class FragmentDispositivos : Fragment() {
     private val binding get() = _binding!!
     private var itemTouchHelper:ItemTouchHelper? = null
 
-    private lateinit var adaptador_dispositivos: AdaptadorDispositivos
+    private lateinit var adaptador_dispositivos: AdaptadorIOT
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDispositivosBinding.inflate(inflater, container, false)
@@ -47,7 +48,12 @@ class FragmentDispositivos : Fragment() {
 
     private fun mostrarRecycler() {
 
-        val lista_dispositivos = mutableListOf(
+        binding.recyclerDispositivos.layoutManager = GridLayoutManager(requireContext(),2)
+        adaptador_dispositivos = AdaptadorIOT(requireContext())
+        binding.recyclerDispositivos.adapter = adaptador_dispositivos
+        adaptador_dispositivos.notifyDataSetChanged()
+
+        /*val lista_dispositivos = mutableListOf(
             Dispositivo("Dispensador de Agua 1",TipoDispositivo.DISPENSADOR_AGUA.name,true,87f,false),
             Dispositivo("Dispensador de Alimento 2",TipoDispositivo.DISPENSADOR_ALIMENTO.name,false,null),
             Dispositivo("Puerta principal",TipoDispositivo.PUERTA.name,true,null,true),
@@ -73,7 +79,7 @@ class FragmentDispositivos : Fragment() {
         val callback = MyItemTouchHelperCallback(adaptador_dispositivos)
         itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper!!.attachToRecyclerView(binding.recyclerDispositivos)
-        adaptador_dispositivos.notifyDataSetChanged()
+        */
 
     }
 
