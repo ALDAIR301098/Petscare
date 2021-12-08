@@ -130,7 +130,6 @@ class ActivityDeviceControl : AppCompatActivity() {
         }
 
         binding.btnControlarFoco.setOnClickListener {
-            Toast.makeText(this, "CLICK", Toast.LENGTH_SHORT).show()
             if (accionar){
                 db_reference.updateChildren(mapOf("Accionar" to false))
             } else{

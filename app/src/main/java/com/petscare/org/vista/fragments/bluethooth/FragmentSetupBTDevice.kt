@@ -23,7 +23,9 @@ import android.os.Looper
 import android.os.Message
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.petscare.org.modelo.objetos.Dispositivo
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -141,6 +143,12 @@ class FragmentSetupBTDevice : Fragment() {
         hilo_comunicacion.write(wifi_password.plus("#"))
 
         Toast.makeText(requireContext(), "DATOS ENVIADOS CORRECTAMENTE", Toast.LENGTH_SHORT).show()
+
+        val id_usuario = Firebase.auth.currentUser!!.uid
+        val db_reference = FirebaseDatabase.getInstance().reference.child("USUARIOS/$id_usuario/DISPOSITIVOS_IOT/$nombre_dispositivo")
+        db_reference.setValue(Dispositivo(false,"null",nombre_dispositivo,"null")).addOnSuccessListener {
+            requireActivity().finish()
+        }
 
     }
 
