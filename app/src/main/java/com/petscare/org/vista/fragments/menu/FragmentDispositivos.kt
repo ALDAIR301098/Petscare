@@ -6,25 +6,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.petscare.org.databinding.FragmentDispositivosBinding
-import com.petscare.org.domain.providers.TipoDispositivo
-import com.petscare.org.modelo.objetos.Dispositivo
-import com.petscare.org.vista.Interfaces.card_draggable.MyItemTouchHelperCallback
-import com.petscare.org.vista.Interfaces.card_draggable.OnStartDragListener
 import com.petscare.org.vista.activitys.ActivityAgregarDispositivoBT
-import com.petscare.org.vista.adaptadores.recyclers.AdaptadorDispositivos
 import com.petscare.org.vista.adaptadores.recyclers.AdaptadorIOT
 
 class FragmentDispositivos : Fragment() {
 
     private var _binding: FragmentDispositivosBinding? = null
     private val binding get() = _binding!!
-    private var itemTouchHelper:ItemTouchHelper? = null
 
-    private lateinit var adaptador_dispositivos: AdaptadorIOT
+    //private val device_list = ArrayList<Dispositivo>()
+    private lateinit var devices_adapter: AdaptadorIOT
+    private lateinit var database_ref:DatabaseReference
+
+    //private var itemTouchHelper:ItemTouchHelper? = null
+
+    override fun onStart() {
+        super.onStart()
+        devices_adapter.startListener()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentDispositivosBinding.inflate(inflater, container, false)
@@ -34,7 +39,7 @@ class FragmentDispositivos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mostrarRecycler()
+        mostrarUI()
         eventosUI()
 
     }
@@ -45,13 +50,27 @@ class FragmentDispositivos : Fragment() {
         }
     }
 
+    private fun mostrarUI() {
 
-    private fun mostrarRecycler() {
-
+        val id_usuario = Firebase.auth.currentUser!!.uid
+        database_ref = FirebaseDatabase.getInstance().getReference("USUARIOS/$id_usuario/DISPOSITIVOS_IOT")
+        devices_adapter = AdaptadorIOT(requireContext(),database_ref)
         binding.recyclerDispositivos.layoutManager = GridLayoutManager(requireContext(),2)
-        adaptador_dispositivos = AdaptadorIOT(requireContext())
-        binding.recyclerDispositivos.adapter = adaptador_dispositivos
-        adaptador_dispositivos.notifyDataSetChanged()
+        binding.recyclerDispositivos.adapter = devices_adapter
+
+        database_ref.get().addOnSuccessListener {
+            if (it.childrenCount > 0){
+                binding.layoutDispositivos.visibility = View.VISIBLE
+                binding.layoutNoDispositivos.visibility = View.GONE
+            } else{
+                binding.layoutDispositivos.visibility = View.GONE
+                binding.layoutNoDispositivos.visibility = View.VISIBLE
+            }
+        }
+
+
+        /* binding.recyclerDispositivos.layoutManager = GridLayoutManager(requireContext(),2)
+        adaptador_dispositivos = AdaptadorIOT(requireContext(), device_list)*/
 
         /*val lista_dispositivos = mutableListOf(
             Dispositivo("Dispensador de Agua 1",TipoDispositivo.DISPENSADOR_AGUA.name,true,87f,false),
@@ -81,6 +100,11 @@ class FragmentDispositivos : Fragment() {
         itemTouchHelper!!.attachToRecyclerView(binding.recyclerDispositivos)
         */
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        devices_adapter.stopListener()
     }
 
     override fun onDestroyView() {

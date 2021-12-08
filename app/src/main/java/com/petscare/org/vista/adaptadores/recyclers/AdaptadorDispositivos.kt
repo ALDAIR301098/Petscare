@@ -31,22 +31,20 @@ class AdaptadorDispositivos(
     }
 
     override fun onBindViewHolder(holder: HolderDispositivos, position: Int) {
-        holder.mostrarDatos(lista_dispositivos[position])
+       /* holder.mostrarDatos(lista_dispositivos[position])
         holder.itemView.setOnLongClickListener{
             listener.onStartDrag(holder)
             false
-        }
+        }*/
     }
 
-    override fun getItemCount(): Int {
-        return lista_dispositivos.size
-    }
+
 
     inner class HolderDispositivos(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val txt_nombre = itemView.findViewById<TextView>(R.id.txt_nombre_dispositivo)
+       /* private val txt_nombre = itemView.findViewById<TextView>(R.id.txt_nombre_dispositivo)
         private val icon_dispositivo = itemView.findViewById<ImageView>(R.id.icon_dispositivo)
-        private val txt_valor = itemView.findViewById<TextView>(R.id.txt_valor_dispositivo)
+        private val txt_valor = itemView.findViewById<TextView>(R.id.txt_estado)
         private val card = itemView.findViewById<MaterialCardView>(R.id.card_info_perfil)
 
         fun mostrarDatos(dispositivo: Dispositivo) {
@@ -121,7 +119,7 @@ class AdaptadorDispositivos(
             }
             icon_dispositivo.background = drawable
 
-        }
+        }*/
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
@@ -133,5 +131,9 @@ class AdaptadorDispositivos(
     override fun onItemDismiss(position: Int) {
         lista_dispositivos.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    override fun getItemCount(): Int {
+        TODO("Not yet implemented")
     }
 }

@@ -12,7 +12,7 @@ import com.petscare.org.modelo.objetos.Dispositivo
 class IconDevice {
     companion object{
 
-        fun config(context: Context, dispositivo: Dispositivo): Drawable?{
+        /*fun config(context: Context, dispositivo: Dispositivo): Drawable?{
 
             var icon : Drawable? = null
 
@@ -49,6 +49,6 @@ class IconDevice {
             }
 
             return icon_color
-        }
+        }*/
     }
 }
