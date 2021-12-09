@@ -1,8 +1,8 @@
 package com.petscare.org.modelo.objetos
 
 data class Dispositivo(
-    var Accionar: Boolean? = null,
-    var Estado: String? = null,
-    var Nombre: String? = null,
-    var Tipo: String? = null
+    var accionar: Boolean? = null,
+    var estado: String? = null,
+    var nombre: String? = null,
+    var tipo: String? = null
 )

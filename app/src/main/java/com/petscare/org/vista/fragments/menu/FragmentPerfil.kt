@@ -35,6 +35,8 @@ class FragmentPerfil : Fragment() {
 
         id_usuario = Firebase.auth.currentUser!!.uid
 
+        binding!!.txtIdUsuario.text = id_usuario
+
         Firebase.firestore.collection("Usuarios").document(id_usuario!!).get()
             .addOnSuccessListener { document ->
                 binding!!.txtNombreUsuario.setText(document.getString("Nombre").plus(" " + document.getString("Apellidos")))
@@ -43,6 +45,7 @@ class FragmentPerfil : Fragment() {
     }
 
     private fun eventosUI() {
+
         /*binding.btnCerrarSesion.setOnClickListener(view -> {
             if (InternetUtil.Companion.verificarConexionInternet(requireContext())){
                 cerrarSesion();

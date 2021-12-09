@@ -8,20 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.database.DatabaseReference
 import com.petscare.org.R
 import com.petscare.org.domain.providers.TipoDispositivo
 import com.petscare.org.modelo.objetos.Dispositivo
-import com.petscare.org.vista.Interfaces.card_draggable.ItemTouchHelperAdapter
-import com.petscare.org.vista.Interfaces.card_draggable.OnStartDragListener
 import com.petscare.org.vista.activitys.ActivityDeviceControl
-import java.util.*
 
 class AdaptadorIOT(
     private val context: Context, db_reference: DatabaseReference):
@@ -48,25 +43,25 @@ class AdaptadorIOT(
         private val txt_state = itemView.findViewById<TextView>(R.id.txt_estado)
 
         fun mostrarDatos(dispositivo: Dispositivo) {
-            txt_name.text = dispositivo.Nombre
+            txt_name.text = dispositivo.nombre
 
             var drawable: Drawable? = null
 
-            when (dispositivo.Tipo) {
+            when (dispositivo.tipo) {
                 TipoDispositivo.DISPENSADOR_ALIMENTO.name -> {
                     drawable =
                         ContextCompat.getDrawable(context, R.drawable.ic_dispensador_alimento)
                     icon_device.background = drawable
-                    txt_state.text = "${dispositivo.Estado}".plus("%")
+                    txt_state.text = "${dispositivo.estado}".plus("%")
                 }
 
                 TipoDispositivo.FOCO.name -> {
                     drawable = ContextCompat.getDrawable(context, R.drawable.ic_foco)
                     icon_device.background = drawable
-                    if (dispositivo.Accionar == true) {
+                    if (dispositivo.accionar == true) {
                         DrawableCompat.setTint(drawable!!, context.getColor(R.color.amarillo))
                         txt_state.text = "Encendido"
-                    } else if (dispositivo.Accionar == false) {
+                    } else if (dispositivo.accionar == false) {
                         DrawableCompat.setTint(drawable!!, context.getColor(R.color.gris))
                         txt_state.text = "Apagado"
                     }
@@ -76,8 +71,8 @@ class AdaptadorIOT(
             card_device.setOnClickListener {
 
                 val intent = Intent(context,ActivityDeviceControl::class.java)
-                intent.putExtra("device_name",dispositivo.Nombre)
-                intent.putExtra("device_type",dispositivo.Tipo)
+                intent.putExtra("device_name",dispositivo.nombre)
+                intent.putExtra("device_type",dispositivo.tipo)
                 context.startActivity(intent)
             }
         }

@@ -2,11 +2,9 @@ package com.petscare.org.vista.activitys
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.DrawableContainer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.google.firebase.auth.ktx.auth
@@ -62,12 +60,12 @@ class ActivityDeviceControl : AppCompatActivity() {
         listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val dispositivo: Dispositivo? = snapshot.getValue(Dispositivo::class.java)
-                binding.toolbarDeviceControl.title = dispositivo!!.Nombre
+                binding.toolbarDeviceControl.title = dispositivo!!.nombre
 
-                if (dispositivo.Tipo == TipoDispositivo.DISPENSADOR_ALIMENTO.name) {
+                if (dispositivo.tipo == TipoDispositivo.DISPENSADOR_ALIMENTO.name) {
 
                     //Info dispensador ----------------------------------------------------------------------------------------------------------------
-                    if (dispositivo.Accionar == true) {
+                    if (dispositivo.accionar == true) {
                         binding.btnDispensar.text = "Parar"
                         binding.txtEstadoDispensador.text = "Dispensando"
                         binding.txtEstadoDispensador.setTextColor(ContextCompat.getColor(this@ActivityDeviceControl, R.color.verde))
@@ -80,7 +78,7 @@ class ActivityDeviceControl : AppCompatActivity() {
                     }
 
                     //Info grafica
-                    val cant_alimento = dispositivo.Estado!!.toInt().toFloat()
+                    val cant_alimento = dispositivo.estado!!.toFloat()
                     val alimento_rest:Float = 100f - cant_alimento
                     binding.pieChart.slices = listOf(
                         PieChart.Slice(cant_alimento.div(100), ContextCompat.getColor(this@ActivityDeviceControl, R.color.verde)),
@@ -89,10 +87,10 @@ class ActivityDeviceControl : AppCompatActivity() {
 
                     //Info Foco ----------------------------------------------------------------------------------------------------------------
 
-                } else if (dispositivo.Tipo == TipoDispositivo.FOCO.name){
+                } else if (dispositivo.tipo == TipoDispositivo.FOCO.name){
                     drawable_icon = ContextCompat.getDrawable(this@ActivityDeviceControl,R.drawable.ic_foco)!!
                     binding.icFoco.background = drawable_icon
-                    if (dispositivo.Accionar== true){
+                    if (dispositivo.accionar== true){
                         accionar = true
                         binding.txtEstadoFoco.text = "Encendido"
                         binding.txtEstadoFoco.setTextColor(ContextCompat.getColor(this@ActivityDeviceControl,R.color.verde))
@@ -123,17 +121,17 @@ class ActivityDeviceControl : AppCompatActivity() {
 
         binding.btnDispensar.setOnClickListener {
             if (accionar){
-                db_reference.updateChildren(mapOf("Accionar" to false))
+                db_reference.updateChildren(mapOf("accionar" to false))
             } else{
-                db_reference.updateChildren(mapOf("Accionar" to true))
+                db_reference.updateChildren(mapOf("accionar" to true))
             }
         }
 
         binding.btnControlarFoco.setOnClickListener {
             if (accionar){
-                db_reference.updateChildren(mapOf("Accionar" to false))
+                db_reference.updateChildren(mapOf("accionar" to false))
             } else{
-                db_reference.updateChildren(mapOf("Accionar" to true))
+                db_reference.updateChildren(mapOf("accionar" to true))
             }
         }
     }

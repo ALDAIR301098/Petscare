@@ -149,7 +149,6 @@ class FragmentSetupBTDevice : Fragment() {
         db_reference.setValue(Dispositivo(false,"null",nombre_dispositivo,"null")).addOnSuccessListener {
             requireActivity().finish()
         }
-
     }
 
     private fun connectBtDevice() {
